@@ -12,7 +12,7 @@ A non-technical user can upload a document and get clean, validated structured d
 
 ### Validated
 
-(None yet — ship to validate)
+- [x] Monorepo structure with shared core (Turborepo) — Validated in Phase 01: monorepo-types-provider
 
 ### Active
 
@@ -62,7 +62,7 @@ A non-technical user can upload a document and get clean, validated structured d
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Monorepo with Turborepo | Shared core engine across web + CLI, single repo for portfolio visibility | — Pending |
+| Monorepo with Turborepo | Shared core engine across web + CLI, single repo for portfolio visibility | ✓ Done — pnpm 10 + Turborepo 2.8 with topological build order |
 | Client-side preferred, API routes allowed | Privacy-first but pragmatic — PDF parsing may need server help | — Pending |
 | One LLM provider first | Prove the abstraction before adding complexity. Clean interface matters more than provider count | — Pending |
 | 2-3 templates, not 6 | Depth over breadth. Extensible system design is more impressive than template quantity | — Pending |
@@ -87,4 +87,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-28 after initialization*
+*Last updated: 2026-03-28 — Phase 01 complete (monorepo scaffold + core types + Anthropic provider)*
