@@ -104,43 +104,43 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INPUT-01 | — | Pending |
-| INPUT-02 | — | Pending |
-| INPUT-03 | — | Pending |
-| INPUT-04 | — | Pending |
-| EXTRACT-01 | — | Pending |
-| EXTRACT-02 | — | Pending |
-| EXTRACT-03 | — | Pending |
-| EXTRACT-04 | — | Pending |
-| EXTRACT-05 | — | Pending |
-| EXTRACT-06 | — | Pending |
-| EXTRACT-07 | — | Pending |
-| EXTRACT-08 | — | Pending |
-| TMPL-01 | — | Pending |
-| TMPL-02 | — | Pending |
-| TMPL-03 | — | Pending |
-| TMPL-04 | — | Pending |
-| WEB-01 | — | Pending |
-| WEB-02 | — | Pending |
-| WEB-03 | — | Pending |
-| WEB-04 | — | Pending |
-| WEB-05 | — | Pending |
-| WEB-06 | — | Pending |
-| WEB-07 | — | Pending |
-| WEB-08 | — | Pending |
-| CLI-01 | — | Pending |
-| CLI-02 | — | Pending |
-| CLI-03 | — | Pending |
-| CLI-04 | — | Pending |
-| LIB-01 | — | Pending |
-| LIB-02 | — | Pending |
-| LIB-03 | — | Pending |
+| INPUT-01 | Phase 2 | Pending |
+| INPUT-02 | Phase 2 | Pending |
+| INPUT-03 | Phase 3 | Pending |
+| INPUT-04 | Phase 4 | Pending |
+| EXTRACT-01 | Phase 2 | Pending |
+| EXTRACT-02 | Phase 2 | Pending |
+| EXTRACT-03 | Phase 2 | Pending |
+| EXTRACT-04 | Phase 2 | Pending |
+| EXTRACT-05 | Phase 2 | Pending |
+| EXTRACT-06 | Phase 1 | Pending |
+| EXTRACT-07 | Phase 3 | Pending |
+| EXTRACT-08 | Phase 2 | Pending |
+| TMPL-01 | Phase 2 | Pending |
+| TMPL-02 | Phase 3 | Pending |
+| TMPL-03 | Phase 3 | Pending |
+| TMPL-04 | Phase 3 | Pending |
+| WEB-01 | Phase 4 | Pending |
+| WEB-02 | Phase 4 | Pending |
+| WEB-03 | Phase 5 | Pending |
+| WEB-04 | Phase 5 | Pending |
+| WEB-05 | Phase 5 | Pending |
+| WEB-06 | Phase 5 | Pending |
+| WEB-07 | Phase 5 | Pending |
+| WEB-08 | Phase 4 | Pending |
+| CLI-01 | Phase 6 | Pending |
+| CLI-02 | Phase 6 | Pending |
+| CLI-03 | Phase 6 | Pending |
+| CLI-04 | Phase 6 | Pending |
+| LIB-01 | Phase 2 | Pending |
+| LIB-02 | Phase 1 | Pending |
+| LIB-03 | Phase 3 | Pending |
 
 **Coverage:**
 - v1 requirements: 31 total
-- Mapped to phases: 0
-- Unmapped: 31 ⚠️
+- Mapped to phases: 31
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-03-28*
-*Last updated: 2026-03-28 after initial definition*
+*Last updated: 2026-03-28 after roadmap revision — expanded to 6 phases, all 31 requirements remapped*
