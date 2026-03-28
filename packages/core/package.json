@@ -14,7 +14,9 @@
       "types": "./dist/index.d.ts"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "publishConfig": {
     "access": "public"
   },
@@ -26,19 +28,20 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "ai": "^6.0.140",
     "@ai-sdk/anthropic": "^3.0.64",
+    "@ai-sdk/provider": "^3.0.8",
     "@anthropic-ai/sdk": "^0.80.0",
+    "ai": "^6.0.140",
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@types/node": "^22.0.0",
     "tsdown": "latest",
     "typescript": "^5.8.0",
-    "vitest": "^3.0.0",
-    "@types/node": "^22.0.0"
+    "vitest": "^3.0.0"
   },
   "peerDependencies": {
-    "zod": "^4.3.6",
-    "ai": "^6.0.140"
+    "ai": "^6.0.140",
+    "zod": "^4.3.6"
   }
 }
