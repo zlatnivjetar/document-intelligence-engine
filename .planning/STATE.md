@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: planning
-stopped_at: Phase 1 context gathered (discuss mode — no discussion, direct to planning)
-last_updated: "2026-03-28T18:20:20.410Z"
-last_activity: 2026-03-28 — Roadmap revised from 4 phases to 6 phases per user feedback
+status: executing
+stopped_at: Completed 01-monorepo-types-provider/01-01-PLAN.md
+last_updated: "2026-03-28T18:53:20.837Z"
+last_activity: 2026-03-28
 progress:
   total_phases: 6
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
+  total_plans: 2
+  completed_plans: 1
   percent: 0
 ---
 
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-28)
 
 **Core value:** A user can upload a document and get clean, validated structured data back — reliably, every time.
-**Current focus:** Phase 1 — Monorepo + Types + Provider
+**Current focus:** Phase 01 — monorepo-types-provider
 
 ## Current Position
 
-Phase: 1 of 6 (Monorepo + Types + Provider)
-Plan: 0 of ? in current phase
-Status: Ready to plan
-Last activity: 2026-03-28 — Roadmap revised from 4 phases to 6 phases per user feedback
+Phase: 01 (monorepo-types-provider) — EXECUTING
+Plan: 2 of 2
+Status: Ready to execute
+Last activity: 2026-03-28
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -52,6 +52,7 @@ Progress: [░░░░░░░░░░] 0%
 - Trend: —
 
 *Updated after each plan completion*
+| Phase 01-monorepo-types-provider P01 | 14 | 2 tasks | 16 files |
 
 ## Accumulated Context
 
@@ -65,6 +66,9 @@ Recent decisions affecting current work:
 - Research: `unpdf` for PDF text extraction, `tsdown` for library bundling, Vercel AI SDK for provider abstraction
 - Research: Set up npm publish pipeline in Phase 2 — monorepo hoisting masks missing deps until consumers install the package
 - Roadmap revision: Expanded from 4 phases to 6. Phase 1 now solely focuses on monorepo scaffold + types + provider abstraction. Extraction pipeline + invoice template moved to Phase 2. Web app split into Phase 4 (core flow) and Phase 5 (results & export). CLI remains last (Phase 6).
+- [Phase 01-monorepo-types-provider]: apps/web uses Bundler moduleResolution (overrides base NodeNext) — required for Next.js App Router with webpack/Turbopack
+- [Phase 01-monorepo-types-provider]: pnpm installed via npm install -g pnpm@10 — not pre-installed in execution environment
+- [Phase 01-monorepo-types-provider]: .gitignore added as Rule 2 deviation — foundational requirement for any git repository
 
 ### Pending Todos
 
@@ -79,6 +83,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-28T18:20:20.407Z
-Stopped at: Phase 1 context gathered (discuss mode — no discussion, direct to planning)
-Resume file: .planning/phases/01-monorepo-types-provider/01-CONTEXT.md
+Last session: 2026-03-28T18:53:20.834Z
+Stopped at: Completed 01-monorepo-types-provider/01-01-PLAN.md
+Resume file: None

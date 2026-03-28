@@ -33,7 +33,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 2 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Monorepo root config + all three workspace package scaffolds
+- [x] 01-01-PLAN.md — Monorepo root config + all three workspace package scaffolds
 - [ ] 01-02-PLAN.md — Core types (ExtractionInput, ExtractionResult, ExtractionError) + Anthropic provider + vitest + full turbo build
 
 ### Phase 2: Extraction Pipeline + Invoice Template

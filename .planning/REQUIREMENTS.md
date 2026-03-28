@@ -53,7 +53,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Library / Infrastructure
 
 - [ ] **LIB-01**: Core engine publishable as npm package with clean, documented public API
-- [ ] **LIB-02**: Monorepo structure (Turborepo + pnpm) with packages/core, packages/web, packages/cli
+- [x] **LIB-02**: Monorepo structure (Turborepo + pnpm) with packages/core, packages/web, packages/cli
 - [ ] **LIB-03**: Web and CLI are thin wrappers around the shared core engine — no logic duplication
 
 ## v2 Requirements
@@ -133,7 +133,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CLI-03 | Phase 6 | Pending |
 | CLI-04 | Phase 6 | Pending |
 | LIB-01 | Phase 2 | Pending |
-| LIB-02 | Phase 1 | Pending |
+| LIB-02 | Phase 1 | Complete |
 | LIB-03 | Phase 3 | Pending |
 
 **Coverage:**
