@@ -1,0 +1,31 @@
+{
+  "name": "@docpipe/cli",
+  "version": "0.1.0",
+  "description": "DocPipe CLI — extract structured data from documents",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "docpipe": "./dist/index.js"
+  },
+  "files": ["dist"],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsdown src/index.ts --format esm --dts",
+    "dev": "tsdown src/index.ts --format esm --watch",
+    "test": "vitest run",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@docpipe/core": "workspace:*",
+    "commander": "^13.0.0"
+  },
+  "devDependencies": {
+    "tsdown": "latest",
+    "typescript": "^5.8.0",
+    "vitest": "^3.0.0",
+    "@types/node": "^22.0.0"
+  }
+}
