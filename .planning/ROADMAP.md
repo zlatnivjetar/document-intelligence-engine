@@ -34,7 +34,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 Plans:
 - [x] 01-01-PLAN.md — Monorepo root config + all three workspace package scaffolds
-- [ ] 01-02-PLAN.md — Core types (ExtractionInput, ExtractionResult, ExtractionError) + Anthropic provider + vitest + full turbo build
+- [x] 01-02-PLAN.md — Core types (ExtractionInput, ExtractionResult, ExtractionError) + Anthropic provider + vitest + full turbo build
 
 ### Phase 2: Extraction Pipeline + Invoice Template
 **Goal**: `@docpipe/core` contains a working extraction pipeline and invoice template — a developer can call `extract()` with a PDF or image and receive a validated, typed result with confidence scores, and the package can be installed from npm by an external consumer

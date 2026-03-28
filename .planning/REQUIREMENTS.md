@@ -21,7 +21,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **EXTRACT-03**: Each extracted field includes a confidence score
 - [ ] **EXTRACT-04**: Engine automatically retries extraction when output fails Zod validation (max 2 retries, error fed back to model)
 - [ ] **EXTRACT-05**: Engine provides clear error states: invalid API key, unsupported file type, extraction failure, validation failure after retries
-- [ ] **EXTRACT-06**: Provider abstraction layer — start with one LLM provider (Claude), clean interface for adding more
+- [x] **EXTRACT-06**: Provider abstraction layer — start with one LLM provider (Claude), clean interface for adding more
 - [ ] **EXTRACT-07**: Templates include business-rule validators (e.g., invoice line items must sum to total)
 - [ ] **EXTRACT-08**: Retry logic respects a cost budget — no retry on 401/429, max 2 retries per extraction
 
@@ -113,7 +113,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EXTRACT-03 | Phase 2 | Pending |
 | EXTRACT-04 | Phase 2 | Pending |
 | EXTRACT-05 | Phase 2 | Pending |
-| EXTRACT-06 | Phase 1 | Pending |
+| EXTRACT-06 | Phase 1 | Complete |
 | EXTRACT-07 | Phase 3 | Pending |
 | EXTRACT-08 | Phase 2 | Pending |
 | TMPL-01 | Phase 2 | Pending |
