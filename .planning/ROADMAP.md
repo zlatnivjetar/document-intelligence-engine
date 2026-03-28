@@ -30,7 +30,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. `ExtractionInput`, `ExtractionResult`, `LLMProvider`, and `ExtractionError` are defined in `packages/core` and importable by both `packages/web` and `packages/cli` via workspace reference
   3. `AnthropicProvider` implements the `LLMProvider` interface and is the sole implementation — swapping to a different provider requires only adding one new file
   4. The provider abstraction compiles with no `any` types in the public interface — TypeScript strict mode is enforced across the monorepo
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Monorepo root config + all three workspace package scaffolds
+- [ ] 01-02-PLAN.md — Core types (ExtractionInput, ExtractionResult, ExtractionError) + Anthropic provider + vitest + full turbo build
 
 ### Phase 2: Extraction Pipeline + Invoice Template
 **Goal**: `@docpipe/core` contains a working extraction pipeline and invoice template — a developer can call `extract()` with a PDF or image and receive a validated, typed result with confidence scores, and the package can be installed from npm by an external consumer
@@ -98,7 +102,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Monorepo + Types + Provider | 0/? | Not started | - |
+| 1. Monorepo + Types + Provider | 0/2 | Not started | - |
 | 2. Extraction Pipeline + Invoice Template | 0/? | Not started | - |
 | 3. Core Completeness | 0/? | Not started | - |
 | 4. Web App — Core Flow | 0/? | Not started | - |
