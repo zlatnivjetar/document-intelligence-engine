@@ -51,7 +51,7 @@ Plans:
 Plans:
 - [x] 02-01-PLAN.md — Core extract() function with document routing and per-field confidence scoring
 - [x] 02-02-PLAN.md — Retry loop and error classification (all 5 ExtractionError codes)
-- [ ] 02-03-PLAN.md — Invoice Zod schema (TMPL-01) with all 10 required fields
+- [x] 02-03-PLAN.md — Invoice Zod schema (TMPL-01) with all 10 required fields
 - [ ] 02-04-PLAN.md — npm publish pipeline audit and consumer install verification
 
 ### Phase 3: Core Completeness
@@ -115,7 +115,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Monorepo + Types + Provider | 2/2 | Complete | 2026-03-28 |
-| 2. Extraction Pipeline + Invoice Template | 2/4 | In Progress | - |
+| 2. Extraction Pipeline + Invoice Template | 3/4 | In Progress | - |
 | 3. Core Completeness | 0/4 | Not started | - |
 | 4. Web App — Core Flow | 0/? | Not started | - |
 | 5. Web App — Results & Export | 0/? | Not started | - |

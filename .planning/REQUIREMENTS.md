@@ -27,7 +27,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Templates
 
-- [ ] **TMPL-01**: Built-in invoice template (vendor name, vendor address, invoice number, invoice date, due date, line items, subtotal, tax amount, tax rate, total)
+- [x] **TMPL-01**: Built-in invoice template (vendor name, vendor address, invoice number, invoice date, due date, line items, subtotal, tax amount, tax rate, total)
 - [ ] **TMPL-02**: Built-in receipt template (merchant name, merchant address, date, line items, subtotal, tax, total)
 - [ ] **TMPL-03**: Built-in W-2 template (employer info, employee info, wages/tips, federal tax withheld, state info, tax year)
 - [ ] **TMPL-04**: Template system is extensible — users can define custom Zod schemas for any document type
@@ -116,7 +116,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EXTRACT-06 | Phase 1 | Complete |
 | EXTRACT-07 | Phase 3 | Pending |
 | EXTRACT-08 | Phase 2 | Complete |
-| TMPL-01 | Phase 2 | Pending |
+| TMPL-01 | Phase 2 | Complete |
 | TMPL-02 | Phase 3 | Pending |
 | TMPL-03 | Phase 3 | Pending |
 | TMPL-04 | Phase 3 | Pending |

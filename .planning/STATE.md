@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-02-PLAN.md
-last_updated: "2026-03-29T06:41:49.465Z"
+stopped_at: Completed 02-03-PLAN.md
+last_updated: "2026-03-29T06:46:47.599Z"
 last_activity: 2026-03-29
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 6
-  completed_plans: 4
-  percent: 67
+  completed_plans: 5
+  percent: 83
 ---
 
 # Project State
@@ -26,30 +26,30 @@ See: .planning/PROJECT.md (updated 2026-03-28)
 ## Current Position
 
 Phase: 02 (extraction-pipeline-invoice-template) - EXECUTING
-Plan: 3 of 4
+Plan: 4 of 4
 Status: Ready to execute
 Last activity: 2026-03-29
 
-Progress: [███████░░░] 67%
+Progress: [████████░░] 83%
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 4
-- Average duration: 10 min
-- Total execution time: 41 min
+- Total plans completed: 5
+- Average duration: 9 min
+- Total execution time: 43 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01 | 2 | 34 min | 17 min |
-| 02 | 2 | 7 min | 4 min |
+| 02 | 3 | 9 min | 3 min |
 
 **Recent Trend:**
 
-- Last 4 plans: 14 min, 20 min, 5 min, 2 min
+- Last 5 plans: 14 min, 20 min, 5 min, 2 min, 2 min
 - Trend: improving
 
 *Updated after each plan completion*
@@ -57,6 +57,7 @@ Progress: [███████░░░] 67%
 | Phase 01-monorepo-types-provider P02 | 20 min | 3 tasks | 10 files |
 | Phase 02 P01 | 5 min | 2 tasks | 3 files |
 | Phase 02 P02 | 2 min | 1 tasks | 2 files |
+| Phase 02 P03 | 2 min | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -79,6 +80,8 @@ Recent decisions affecting current work:
 - [Phase 02]: Non-object schemas use z.record confidence fallback - preserves dynamic top-level confidence keys for flexible schemas instead of stripping them with an empty object schema.
 - [Phase 02]: Unsupported mime types fail before model calls - the retry wrapper rejects unsupported inputs before generateObject() so invalid files do not consume tokens.
 - [Phase 02]: Validation retries append schema errors to the prompt - each retry reuses extractCore() and adds the previous validation failure as corrective context for the model.
+- [Phase 02]: Invoice template uses nullable optional invoice fields - vendorAddress, dueDate, taxAmount, and taxRate are nullable so the built-in template matches invoices that omit them.
+- [Phase 02]: Invoice schema uses explicit shape annotations - the exported Zod schema needs explicit internal shape types to compile under isolatedDeclarations without weakening the template contract.
 
 ### Pending Todos
 
@@ -93,6 +96,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-29T06:41:49.465Z
-Stopped at: Completed 02-02-PLAN.md
+Last session: 2026-03-29T06:46:47.599Z
+Stopped at: Completed 02-03-PLAN.md
 Resume file: None
