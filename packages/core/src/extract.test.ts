@@ -127,6 +127,49 @@ describe('extract', () => {
     });
   });
 
+  it('accepts Uint8Array browser input and encodes it as base64', async () => {
+    await extract({
+      input: {
+        document: new Uint8Array([1, 2, 3]),
+        mimeType: 'image/png',
+      },
+      schema: invoiceSchema,
+      model: mockModel,
+    });
+
+    const request = getGenerateObjectRequest();
+    const filePart = request.messages?.[0]?.content?.[1];
+
+    expect(filePart).toEqual({
+      type: 'file',
+      data: 'AQID',
+      mediaType: 'image/png',
+    });
+  });
+
+  it('accepts ArrayBuffer browser input and encodes it as base64', async () => {
+    const document = new ArrayBuffer(3);
+    new Uint8Array(document).set([1, 2, 3]);
+
+    await extract({
+      input: {
+        document,
+        mimeType: 'image/png',
+      },
+      schema: invoiceSchema,
+      model: mockModel,
+    });
+
+    const request = getGenerateObjectRequest();
+    const filePart = request.messages?.[0]?.content?.[1];
+
+    expect(filePart).toEqual({
+      type: 'file',
+      data: 'AQID',
+      mediaType: 'image/png',
+    });
+  });
+
   it('routes JPEG base64 input through a file content block with image/jpeg mimeType', async () => {
     await extract({
       input: {
