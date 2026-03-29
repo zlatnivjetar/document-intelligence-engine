@@ -15,3 +15,7 @@ export { createAnthropicProvider } from './provider.js';
 // Core extraction function: extract, ExtractOptions
 export type { ExtractOptions } from './extract.js';
 export { extract } from './extract.js';
+
+// Built-in templates
+export type { InvoiceData } from './templates/invoice.js';
+export { invoiceSchema } from './templates/invoice.js';
