@@ -15,6 +15,7 @@ import {
   extract,
   type ExtractOptions,
   type ExtractionInput,
+  type ExtractionResult,
 } from '@/lib/docpipe';
 import { ApiKeyField } from '@/components/docpipe/api-key-field';
 import { CustomSchemaEditor } from '@/components/docpipe/custom-schema-editor';
@@ -29,6 +30,10 @@ import {
   useSessionStorageState,
 } from '@/hooks/use-session-storage';
 import { compileCustomSchema } from '@/lib/custom-schema';
+import {
+  toExtractionErrorState,
+  type ResultErrorState,
+} from '@/lib/extraction-error-state';
 import { readFileAsBase64, isSupportedDocument } from '@/lib/file-input';
 import {
   BUILT_IN_TEMPLATES,
@@ -74,18 +79,6 @@ function getTemplateById(
   return BUILT_IN_TEMPLATES.find((template) => template.id === templateId);
 }
 
-function getErrorMessage(error: unknown): string {
-  if (typeof error === 'object' && error !== null && 'message' in error) {
-    const message = (error as { message?: unknown }).message;
-
-    if (typeof message === 'string' && message.length > 0) {
-      return message;
-    }
-  }
-
-  return 'Extraction failed. Check your document and key, then try again.';
-}
-
 export function DocpipeWorkspace(): React.JSX.Element {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [selectedTemplateId, setSelectedTemplateId] =
@@ -101,8 +94,9 @@ export function DocpipeWorkspace(): React.JSX.Element {
   );
   const [isExtracting, setIsExtracting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [resultJson, setResultJson] = useState<string | null>(null);
-  const [overallConfidence, setOverallConfidence] = useState<number | null>(null);
+  const [result, setResult] =
+    useState<ExtractionResult<Record<string, unknown>> | null>(null);
+  const [resultError, setResultError] = useState<ResultErrorState | null>(null);
   const providerCopy = PROVIDER_COPY[provider];
 
   function handleFileSelect(file: File | null): void {
@@ -111,12 +105,22 @@ export function DocpipeWorkspace(): React.JSX.Element {
     }
 
     if (!isSupportedDocument(file)) {
+      setSelectedFile(null);
       setErrorMessage(UNSUPPORTED_FILE_ERROR);
+      setResult(null);
+      setResultError(
+        toExtractionErrorState({
+          code: 'UNSUPPORTED_FILE_TYPE',
+          message: UNSUPPORTED_FILE_ERROR,
+          retryable: false,
+        }),
+      );
       return;
     }
 
     setSelectedFile(file);
     setErrorMessage(null);
+    setResultError(null);
   }
 
   async function handleExtract(): Promise<void> {
@@ -137,8 +141,8 @@ export function DocpipeWorkspace(): React.JSX.Element {
 
     setIsExtracting(true);
     setErrorMessage(null);
-    setResultJson(null);
-    setOverallConfidence(null);
+    setResult(null);
+    setResultError(null);
 
     try {
       let schema: ExtractOptions<Record<string, unknown>>['schema'];
@@ -181,10 +185,11 @@ export function DocpipeWorkspace(): React.JSX.Element {
         schemaDescription,
       });
 
-      setResultJson(JSON.stringify(result.data, null, 2));
-      setOverallConfidence(result.overallConfidence);
+      setResult(result);
+      setResultError(null);
     } catch (error) {
-      setErrorMessage(getErrorMessage(error));
+      setResult(null);
+      setResultError(toExtractionErrorState(error));
     } finally {
       setIsExtracting(false);
     }
@@ -227,6 +232,7 @@ export function DocpipeWorkspace(): React.JSX.Element {
                 onValueChange={(nextValue) => {
                   setProvider(nextValue);
                   setErrorMessage(null);
+                  setResultError(null);
                 }}
                 value={provider}
               />
@@ -237,6 +243,7 @@ export function DocpipeWorkspace(): React.JSX.Element {
                 onChange={(nextValue) => {
                   setApiKey(nextValue);
                   setErrorMessage(null);
+                  setResultError(null);
                 }}
                 placeholder={providerCopy.apiKeyPlaceholder}
                 value={apiKey}
@@ -259,6 +266,7 @@ export function DocpipeWorkspace(): React.JSX.Element {
                   onValueChange={(nextValue) => {
                     setSelectedTemplateId(nextValue);
                     setErrorMessage(null);
+                    setResultError(null);
                   }}
                   value={selectedTemplateId}
                 />
@@ -271,6 +279,7 @@ export function DocpipeWorkspace(): React.JSX.Element {
                 onChange={(nextValue) => {
                   setCustomSchemaSource(nextValue);
                   setErrorMessage(null);
+                  setResultError(null);
                 }}
                 value={customSchemaSource}
               />
@@ -294,10 +303,7 @@ export function DocpipeWorkspace(): React.JSX.Element {
       </section>
 
       <aside>
-        <ResultsPreview
-          overallConfidence={overallConfidence}
-          resultJson={resultJson}
-        />
+        <ResultsPreview result={result} resultError={resultError} />
       </aside>
     </div>
   );
