@@ -34,18 +34,13 @@ function createResponse(
     extracted: InvoiceData;
     confidence: Record<string, number>;
   }>,
-): {
-  object: {
-    extracted: InvoiceData;
-    confidence: Record<string, number>;
-  };
-} {
+): Awaited<ReturnType<typeof generateObject>> {
   return {
     object: {
       extracted: overrides?.extracted ?? mockData,
       confidence: overrides?.confidence ?? mockConfidence,
     },
-  };
+  } as Awaited<ReturnType<typeof generateObject>>;
 }
 
 function getGenerateObjectRequest(): Parameters<typeof generateObject>[0] {
@@ -83,7 +78,7 @@ describe('extract', () => {
     expect(filePart).toEqual({
       type: 'file',
       data: pdfBuffer.toString('base64'),
-      mimeType: 'application/pdf',
+      mediaType: 'application/pdf',
     });
     expect(result.data).toEqual(mockData);
   });
@@ -104,7 +99,7 @@ describe('extract', () => {
     expect(filePart).toEqual({
       type: 'file',
       data: 'png-base64-data',
-      mimeType: 'image/png',
+      mediaType: 'image/png',
     });
   });
 
@@ -124,7 +119,7 @@ describe('extract', () => {
     expect(filePart).toEqual({
       type: 'file',
       data: 'jpeg-base64-data',
-      mimeType: 'image/jpeg',
+      mediaType: 'image/jpeg',
     });
   });
 
