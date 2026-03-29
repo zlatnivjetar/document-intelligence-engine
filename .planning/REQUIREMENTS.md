@@ -36,11 +36,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **WEB-01**: BYOK API key input stored in browser only (localStorage/sessionStorage), never sent to server
 - [x] **WEB-02**: Live extraction preview - results appear in-page as extraction completes
-- [ ] **WEB-03**: Results displayed in table with field-level confidence color-coding (green >= 0.85, amber 0.60-0.84, red < 0.60)
-- [ ] **WEB-04**: Export results as JSON (file download)
-- [ ] **WEB-05**: Export results as CSV (file download)
-- [ ] **WEB-06**: Copy JSON to clipboard with instant visual feedback
-- [ ] **WEB-07**: Custom Zod schema input - users can provide custom schemas in the web UI
+- [x] **WEB-03**: Results displayed in table with field-level confidence color-coding (green >= 0.85, amber 0.60-0.84, red < 0.60)
+- [x] **WEB-04**: Export results as JSON (file download)
+- [x] **WEB-05**: Export results as CSV (file download)
+- [x] **WEB-06**: Copy JSON to clipboard with instant visual feedback
+- [x] **WEB-07**: Custom Zod schema input - users can provide custom schemas in the web UI
 - [x] **WEB-08**: Template selection UI - users pick from built-in templates or provide custom schema
 
 ### CLI
@@ -122,11 +122,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TMPL-04 | Phase 3 | Complete |
 | WEB-01 | Phase 4 | Complete |
 | WEB-02 | Phase 4 | Complete |
-| WEB-03 | Phase 5 | Pending |
-| WEB-04 | Phase 5 | Pending |
-| WEB-05 | Phase 5 | Pending |
-| WEB-06 | Phase 5 | Pending |
-| WEB-07 | Phase 5 | Pending |
+| WEB-03 | Phase 5 | Complete |
+| WEB-04 | Phase 5 | Complete |
+| WEB-05 | Phase 5 | Complete |
+| WEB-06 | Phase 5 | Complete |
+| WEB-07 | Phase 5 | Complete |
 | WEB-08 | Phase 4 | Complete |
 | CLI-01 | Phase 6 | Pending |
 | CLI-02 | Phase 6 | Pending |
@@ -143,4 +143,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-03-28*
-*Last updated: 2026-03-29 - Phase 04 complete; INPUT-04, WEB-01, WEB-02, and WEB-08 verified complete*
+*Last updated: 2026-03-29 - Phase 05 complete; WEB-03 through WEB-07 verified complete*
