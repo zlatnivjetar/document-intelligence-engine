@@ -3,6 +3,7 @@ import { generateObject } from 'ai';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { z } from 'zod';
 import { extract } from './extract.js';
+import { invoiceSchema as builtInInvoiceSchema } from './templates/invoice.js';
 import type { ExtractionResult } from './types.js';
 
 vi.mock('ai', () => ({
@@ -90,6 +91,7 @@ describe('extract', () => {
       },
       schema: invoiceSchema,
       model: mockModel,
+      routingOverride: 'image-only',
     });
 
     const request = getGenerateObjectRequest();
@@ -334,5 +336,91 @@ describe('extract', () => {
     });
 
     expect(generateObject).not.toHaveBeenCalled();
+  });
+});
+
+describe('extract() - PDF routing via routingOverride', () => {
+  beforeEach(() => {
+    vi.mocked(generateObject).mockReset();
+  });
+
+  it('returns pdfType text-layer when routingOverride is text-layer', async () => {
+    vi.mocked(generateObject).mockResolvedValueOnce({
+      object: {
+        extracted: {
+          vendorName: 'Test Vendor',
+          vendorAddress: null,
+          invoiceNumber: 'INV-001',
+          invoiceDate: '2024-01-15',
+          dueDate: null,
+          lineItems: [],
+          subtotal: 100,
+          taxAmount: null,
+          taxRate: null,
+          total: 100,
+        },
+        confidence: {
+          vendorName: 0.9,
+          vendorAddress: 0.9,
+          invoiceNumber: 0.9,
+          invoiceDate: 0.9,
+          dueDate: 0.9,
+          lineItems: 0.9,
+          subtotal: 0.9,
+          taxAmount: 0.9,
+          taxRate: 0.9,
+          total: 0.9,
+        },
+      },
+    } as Awaited<ReturnType<typeof generateObject>>);
+
+    const result = await extract({
+      input: { document: 'base64pdfdata', mimeType: 'application/pdf' },
+      schema: builtInInvoiceSchema,
+      model: mockModel,
+      routingOverride: 'text-layer',
+    });
+
+    expect(result.pdfType).toBe('text-layer');
+  });
+
+  it('returns pdfType image-only when routingOverride is image-only', async () => {
+    vi.mocked(generateObject).mockResolvedValueOnce({
+      object: {
+        extracted: {
+          vendorName: 'Test Vendor',
+          vendorAddress: null,
+          invoiceNumber: 'INV-002',
+          invoiceDate: '2024-01-15',
+          dueDate: null,
+          lineItems: [],
+          subtotal: 200,
+          taxAmount: null,
+          taxRate: null,
+          total: 200,
+        },
+        confidence: {
+          vendorName: 0.92,
+          vendorAddress: 0.92,
+          invoiceNumber: 0.92,
+          invoiceDate: 0.92,
+          dueDate: 0.92,
+          lineItems: 0.92,
+          subtotal: 0.92,
+          taxAmount: 0.92,
+          taxRate: 0.92,
+          total: 0.92,
+        },
+      },
+    } as Awaited<ReturnType<typeof generateObject>>);
+
+    const result = await extract({
+      input: { document: 'base64pdfdata', mimeType: 'application/pdf' },
+      schema: builtInInvoiceSchema,
+      model: mockModel,
+      routingOverride: 'image-only',
+    });
+
+    expect(result.pdfType).toBe('image-only');
   });
 });

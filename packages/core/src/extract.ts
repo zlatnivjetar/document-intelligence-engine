@@ -2,6 +2,8 @@ import type { LanguageModelV3 } from '@ai-sdk/provider';
 import { generateObject } from 'ai';
 import type { UserModelMessage } from 'ai';
 import { z } from 'zod';
+import { detectPdfType } from './pdf-router.js';
+import type { PdfType } from './pdf-router.js';
 import type {
   ExtractionError,
   ExtractionInput,
@@ -26,6 +28,7 @@ export interface ExtractOptions<T> {
   model: LanguageModelV3;
   schemaName?: string;
   schemaDescription?: string;
+  routingOverride?: PdfType;
 }
 
 function getTopLevelKeys<T>(schema: z.ZodSchema<T>): string[] {
@@ -204,11 +207,24 @@ export async function extract<T>(
     } satisfies ExtractionError;
   }
 
+  let pdfType: PdfType | undefined;
+  if (options.input.mimeType === 'application/pdf') {
+    pdfType =
+      options.routingOverride ??
+      (await detectPdfType(
+        Buffer.isBuffer(options.input.document)
+          ? options.input.document
+          : Buffer.from(options.input.document, 'base64'),
+      ));
+  }
+
   let lastValidationErrors: string[] = [];
 
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
     try {
-      return await extractCore(options, lastValidationErrors);
+      const result = await extractCore(options, lastValidationErrors);
+
+      return pdfType === undefined ? result : { ...result, pdfType };
     } catch (error: unknown) {
       if (isExtractionError(error)) {
         throw error;

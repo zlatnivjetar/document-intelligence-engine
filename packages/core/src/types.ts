@@ -17,6 +17,7 @@ export interface ExtractionResult<T> {
   data: T;
   confidence: Record<string, number>;
   overallConfidence: number;
+  pdfType?: 'text-layer' | 'image-only';
 }
 
 /**
