@@ -13,8 +13,8 @@ import {
 
 interface TemplateSelectorProps {
   disabled?: boolean;
-  value: BuiltInTemplateId | '';
-  onValueChange: (value: BuiltInTemplateId) => void;
+  value: BuiltInTemplateId | 'custom' | '';
+  onValueChange: (value: BuiltInTemplateId | 'custom') => void;
 }
 
 export function TemplateSelector({
@@ -28,7 +28,9 @@ export function TemplateSelector({
         <Label htmlFor="template-selector">Template</Label>
         <Select
           disabled={disabled}
-          onValueChange={(nextValue) => onValueChange(nextValue as BuiltInTemplateId)}
+          onValueChange={(nextValue) =>
+            onValueChange(nextValue as BuiltInTemplateId | 'custom')
+          }
           value={value === '' ? undefined : value}
         >
           <SelectTrigger id="template-selector">
@@ -40,6 +42,7 @@ export function TemplateSelector({
                 {template.label}
               </SelectItem>
             ))}
+            <SelectItem value="custom">Custom Zod schema</SelectItem>
           </SelectContent>
         </Select>
       </div>

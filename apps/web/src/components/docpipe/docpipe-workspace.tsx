@@ -17,6 +17,7 @@ import {
   type ExtractionInput,
 } from '@/lib/docpipe';
 import { ApiKeyField } from '@/components/docpipe/api-key-field';
+import { CustomSchemaEditor } from '@/components/docpipe/custom-schema-editor';
 import { ProviderSelector } from '@/components/docpipe/provider-selector';
 import { ResultsPreview } from '@/components/docpipe/results-preview';
 import { TemplateSelector } from '@/components/docpipe/template-selector';
@@ -27,6 +28,7 @@ import {
   type DocpipeProvider,
   useSessionStorageState,
 } from '@/hooks/use-session-storage';
+import { compileCustomSchema } from '@/lib/custom-schema';
 import { readFileAsBase64, isSupportedDocument } from '@/lib/file-input';
 import {
   BUILT_IN_TEMPLATES,
@@ -37,7 +39,7 @@ import {
 const UNSUPPORTED_FILE_ERROR =
   'That file is not supported. Use PDF, PNG, or JPG and try again.';
 
-type SelectedTemplateId = BuiltInTemplateId | '';
+type SelectedTemplateId = BuiltInTemplateId | 'custom' | '';
 
 const PROVIDER_COPY: Record<
   DocpipeProvider,
@@ -65,7 +67,7 @@ const PROVIDER_COPY: Record<
 function getTemplateById(
   templateId: SelectedTemplateId,
 ): BuiltInTemplateDefinition | undefined {
-  if (templateId === '') {
+  if (templateId === '' || templateId === 'custom') {
     return undefined;
   }
 
@@ -88,6 +90,7 @@ export function DocpipeWorkspace(): React.JSX.Element {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [selectedTemplateId, setSelectedTemplateId] =
     useState<SelectedTemplateId>('');
+  const [customSchemaSource, setCustomSchemaSource] = useState('');
   const [provider, setProvider] = useSessionStorageState<DocpipeProvider>(
     DOCPIPE_PROVIDER_STORAGE_KEY,
     'anthropic',
@@ -132,19 +135,36 @@ export function DocpipeWorkspace(): React.JSX.Element {
       return;
     }
 
-    const selectedTemplate = getTemplateById(selectedTemplateId);
-
-    if (!selectedTemplate) {
-      setErrorMessage('Choose a template before extracting.');
-      return;
-    }
-
     setIsExtracting(true);
     setErrorMessage(null);
     setResultJson(null);
     setOverallConfidence(null);
 
     try {
+      let schema: ExtractOptions<Record<string, unknown>>['schema'];
+      let schemaName: string;
+      let schemaDescription: string;
+
+      if (selectedTemplateId === 'custom') {
+        const customSchema = compileCustomSchema(customSchemaSource);
+
+        schema = customSchema.schema as ExtractOptions<Record<string, unknown>>['schema'];
+        schemaName = customSchema.schemaName;
+        schemaDescription = customSchema.schemaDescription;
+      } else {
+        const selectedTemplate = getTemplateById(selectedTemplateId);
+
+        if (!selectedTemplate) {
+          setErrorMessage('Choose a template before extracting.');
+          return;
+        }
+
+        schema =
+          selectedTemplate.schema as ExtractOptions<Record<string, unknown>>['schema'];
+        schemaName = selectedTemplate.schemaName;
+        schemaDescription = selectedTemplate.schemaDescription;
+      }
+
       const base64Document = await readFileAsBase64(selectedFile);
       const model =
         provider === 'anthropic'
@@ -155,11 +175,10 @@ export function DocpipeWorkspace(): React.JSX.Element {
           document: base64Document,
           mimeType: selectedFile.type as ExtractionInput['mimeType'],
         },
-        schema:
-          selectedTemplate.schema as ExtractOptions<Record<string, unknown>>['schema'],
+        schema,
         model,
-        schemaName: selectedTemplate.schemaName,
-        schemaDescription: selectedTemplate.schemaDescription,
+        schemaName,
+        schemaDescription,
       });
 
       setResultJson(JSON.stringify(result.data, null, 2));
@@ -225,24 +244,38 @@ export function DocpipeWorkspace(): React.JSX.Element {
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-[1.75rem]">Template</CardTitle>
-              <CardDescription>
-                Start with the built-in templates from the Phase 4 contract.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <TemplateSelector
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-[1.75rem]">Template</CardTitle>
+                <CardDescription>
+                  Choose a built-in template or switch to a pasted schema without
+                  leaving this page.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <TemplateSelector
+                  disabled={isExtracting}
+                  onValueChange={(nextValue) => {
+                    setSelectedTemplateId(nextValue);
+                    setErrorMessage(null);
+                  }}
+                  value={selectedTemplateId}
+                />
+              </CardContent>
+            </Card>
+
+            {selectedTemplateId === 'custom' ? (
+              <CustomSchemaEditor
                 disabled={isExtracting}
-                onValueChange={(nextValue) => {
-                  setSelectedTemplateId(nextValue);
+                onChange={(nextValue) => {
+                  setCustomSchemaSource(nextValue);
                   setErrorMessage(null);
                 }}
-                value={selectedTemplateId}
+                value={customSchemaSource}
               />
-            </CardContent>
-          </Card>
+            ) : null}
+          </div>
         </div>
 
         <div className="flex justify-start">
