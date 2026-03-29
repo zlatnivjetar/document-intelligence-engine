@@ -18,10 +18,13 @@ A non-technical user can upload a document and get clean, validated structured d
 - [x] Schema-driven output using Zod - every extraction validated against a schema, malformed output retried or flagged - Validated in Phase 02: extraction-pipeline-invoice-template
 - [x] Confidence scoring per extracted field - Validated in Phase 02: extraction-pipeline-invoice-template
 - [x] Core engine publishable as npm package with clean, well-documented API - Validated in Phase 02: extraction-pipeline-invoice-template
+- [x] Built-in receipt and W-2 templates, plus extensible custom-schema support - Validated in Phase 03: core-completeness
+- [x] PDF routing distinguishes text-layer and image-only documents before the model call - Validated in Phase 03: core-completeness
+- [x] Business-rule validators surface warnings without failing extraction - Validated in Phase 03: core-completeness
+- [x] Web and CLI stay thin consumers of the shared core package - Validated in Phase 03: core-completeness
 
 ### Active
 
-- [ ] Built-in receipt and W-2 templates, plus extensible custom-schema support
 - [ ] BYOK - users provide their own LLM API key
 - [ ] Web app: drag-and-drop upload, template selection, live extraction preview, results table with confidence indicators
 - [ ] Web app: export as JSON, CSV, or copy to clipboard
@@ -64,9 +67,9 @@ A non-technical user can upload a document and get clean, validated structured d
 | Monorepo with Turborepo | Shared core engine across web + CLI, single repo for portfolio visibility | Done - pnpm 10 + Turborepo 2.8 with topological build order |
 | Client-side preferred, API routes allowed | Privacy-first but pragmatic - PDF parsing may need server help | Pending |
 | One LLM provider first | Prove the abstraction before adding complexity. Clean interface matters more than provider count | In progress - Anthropic provider is implemented and Phase 02 proved the shared extract() API against a LanguageModelV3-compatible model surface |
-| 2-3 templates, not 6 | Depth over breadth. Extensible system design is more impressive than template quantity | In progress - invoice template is complete; receipt, W-2, and custom-schema completion move to Phase 03 |
+| 2-3 templates, not 6 | Depth over breadth. Extensible system design is more impressive than template quantity | Done - invoice, receipt, W-2, and custom-schema support are all verified in the shared core library |
 | Defer batch mode | Single-doc flow must be excellent first. Batch adds complexity without proving core value | Pending |
-| Core + web app priority over CLI | These are the most visible for portfolio. CLI is functional but lower polish | In progress - the shared core library is the first completed product surface; web remains ahead of CLI in the roadmap |
+| Core + web app priority over CLI | These are the most visible for portfolio. CLI is functional but lower polish | In progress - the shared core library is now feature-complete through Phase 03; web remains ahead of CLI in the roadmap |
 
 ## Evolution
 
@@ -86,4 +89,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-29 - Phase 02 complete (extraction pipeline, invoice template, and npm consumer verification)*
+*Last updated: 2026-03-29 - Phase 03 complete (fixture-backed templates, real PDF routing, validators, and thin consumer verification)*
