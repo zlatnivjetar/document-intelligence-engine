@@ -1,3 +1,6 @@
+import { useEffect, useRef, useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { ResultConfidenceTable } from '@/components/docpipe/result-confidence-table';
 import {
   Card,
   CardContent,
@@ -5,23 +8,89 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import type { ExtractionResult } from '@/lib/docpipe';
 import type { ResultErrorState } from '@/lib/extraction-error-state';
-import { ResultConfidenceTable } from '@/components/docpipe/result-confidence-table';
+import type { ExtractionResult } from '@/lib/docpipe';
+import {
+  copyResultJson,
+  downloadResultCsv,
+  downloadResultJson,
+} from '@/lib/result-export';
 
 interface ResultsPreviewProps {
   result: ExtractionResult<Record<string, unknown>> | null;
   resultError: ResultErrorState | null;
+  sourceFileName: string | null;
 }
+
+type CopyState = 'idle' | 'copied' | 'error';
 
 function formatOverallConfidence(overallConfidence: number): string {
   return `${Math.round(overallConfidence * 100)}%`;
 }
 
+function getCopyButtonLabel(copyState: CopyState): string {
+  if (copyState === 'copied') {
+    return 'Copied JSON';
+  }
+
+  if (copyState === 'error') {
+    return 'Copy failed';
+  }
+
+  return 'Copy JSON';
+}
+
 export function ResultsPreview({
   result,
   resultError,
+  sourceFileName,
 }: ResultsPreviewProps): React.JSX.Element {
+  const [copyState, setCopyState] = useState<CopyState>('idle');
+  const copyResetTimeoutRef = useRef<number | null>(null);
+  const fileStem = sourceFileName?.replace(/\.[^.]+$/, '') ?? 'docpipe-result';
+
+  useEffect(() => {
+    return () => {
+      if (copyResetTimeoutRef.current !== null) {
+        window.clearTimeout(copyResetTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (copyResetTimeoutRef.current !== null) {
+      window.clearTimeout(copyResetTimeoutRef.current);
+      copyResetTimeoutRef.current = null;
+    }
+
+    setCopyState('idle');
+  }, [result, resultError, sourceFileName]);
+
+  function setTransientCopyState(nextState: CopyState): void {
+    if (copyResetTimeoutRef.current !== null) {
+      window.clearTimeout(copyResetTimeoutRef.current);
+    }
+
+    setCopyState(nextState);
+    copyResetTimeoutRef.current = window.setTimeout(() => {
+      setCopyState('idle');
+      copyResetTimeoutRef.current = null;
+    }, 2000);
+  }
+
+  async function handleCopyJson(): Promise<void> {
+    if (result === null) {
+      return;
+    }
+
+    try {
+      await copyResultJson(result.data);
+      setTransientCopyState('copied');
+    } catch {
+      setTransientCopyState('error');
+    }
+  }
+
   if (resultError) {
     return (
       <Card className="sticky top-8 bg-[rgba(251,248,242,0.94)]">
@@ -76,8 +145,8 @@ export function ResultsPreview({
       <CardHeader>
         <CardTitle className="text-[2rem]">Result preview</CardTitle>
         <CardDescription>
-          Structured output stays in-page with field-level confidence before
-          export tools are added.
+          Structured output stays in-page with field-level confidence and
+          browser-only export actions.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-5">
@@ -96,6 +165,42 @@ export function ResultsPreview({
             </span>
           </div>
         ) : null}
+
+        <div className="flex flex-wrap gap-3">
+          <Button
+            disabled={result === null}
+            onClick={() => {
+              downloadResultJson(fileStem, result.data);
+            }}
+            size="sm"
+            type="button"
+            variant="outline"
+          >
+            Download JSON
+          </Button>
+          <Button
+            disabled={result === null}
+            onClick={() => {
+              downloadResultCsv(fileStem, result);
+            }}
+            size="sm"
+            type="button"
+            variant="outline"
+          >
+            Download CSV
+          </Button>
+          <Button
+            disabled={result === null}
+            onClick={() => {
+              void handleCopyJson();
+            }}
+            size="sm"
+            type="button"
+            variant="secondary"
+          >
+            {getCopyButtonLabel(copyState)}
+          </Button>
+        </div>
 
         <ResultConfidenceTable
           confidence={result.confidence}

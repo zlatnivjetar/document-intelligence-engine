@@ -303,7 +303,11 @@ export function DocpipeWorkspace(): React.JSX.Element {
       </section>
 
       <aside>
-        <ResultsPreview result={result} resultError={resultError} />
+        <ResultsPreview
+          result={result}
+          resultError={resultError}
+          sourceFileName={selectedFile?.name ?? null}
+        />
       </aside>
     </div>
   );
