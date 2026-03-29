@@ -1,5 +1,6 @@
 export {
   createAnthropicProvider,
+  createOpenAIProvider,
   extract,
   invoiceSchema,
   receiptSchema,
@@ -13,6 +14,7 @@ export type {
   ExtractionInput,
   ExtractionResult,
   InvoiceData,
+  OpenAIProviderOptions,
   ReceiptData,
   W2Data,
 } from '@docpipe/core/browser';

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { createAnthropicProvider } from './provider.js';
+import { createAnthropicProvider, createOpenAIProvider } from './provider.js';
 import type {
   ExtractionInput,
   ExtractionResult,
@@ -32,6 +32,32 @@ describe('createAnthropicProvider', () => {
   it('defaults to claude-sonnet-4-6 when no model is specified', () => {
     const model = createAnthropicProvider({ apiKey: 'sk-ant-fake' });
     expect(model.modelId).toBe('claude-sonnet-4-6');
+  });
+});
+
+describe('createOpenAIProvider', () => {
+  it('returns an object with the LanguageModelV3 shape (specificationVersion, provider, modelId)', () => {
+    const model = createOpenAIProvider({
+      apiKey: 'sk-proj-test-fake-key-for-type-check',
+    });
+    expect(model).toBeDefined();
+    expect(typeof model.specificationVersion).toBe('string');
+    expect(typeof model.provider).toBe('string');
+    expect(typeof model.modelId).toBe('string');
+    expect(model.modelId).toBe('gpt-4.1');
+  });
+
+  it('accepts a custom model ID', () => {
+    const model = createOpenAIProvider({
+      apiKey: 'sk-proj-test-fake',
+      model: 'gpt-4.1-mini',
+    });
+    expect(model.modelId).toBe('gpt-4.1-mini');
+  });
+
+  it('defaults to gpt-4.1 when no model is specified', () => {
+    const model = createOpenAIProvider({ apiKey: 'sk-proj-fake' });
+    expect(model.modelId).toBe('gpt-4.1');
   });
 });
 

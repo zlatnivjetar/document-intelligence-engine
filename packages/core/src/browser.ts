@@ -6,8 +6,11 @@ export type {
   ExtractionWarning,
 } from './types.js';
 
-export type { AnthropicProviderOptions } from './provider.js';
-export { createAnthropicProvider } from './provider.js';
+export type {
+  AnthropicProviderOptions,
+  OpenAIProviderOptions,
+} from './provider.js';
+export { createAnthropicProvider, createOpenAIProvider } from './provider.js';
 
 export type { ExtractOptions } from './extract.js';
 export { extract } from './extract.js';

@@ -3,25 +3,31 @@ import { Label } from '@/components/ui/label';
 
 interface ApiKeyFieldProps {
   disabled?: boolean;
+  inputId: string;
+  label: string;
+  placeholder: string;
   value: string;
   onChange: (value: string) => void;
 }
 
 export function ApiKeyField({
   disabled = false,
+  inputId,
+  label,
+  placeholder,
   value,
   onChange,
 }: ApiKeyFieldProps): React.JSX.Element {
   return (
     <div className="space-y-3">
       <div className="space-y-2">
-        <Label htmlFor="anthropic-api-key">Anthropic API key</Label>
+        <Label htmlFor={inputId}>{label}</Label>
         <Input
           autoComplete="off"
           disabled={disabled}
-          id="anthropic-api-key"
+          id={inputId}
           onChange={(event) => onChange(event.target.value)}
-          placeholder="sk-ant-..."
+          placeholder={placeholder}
           spellCheck={false}
           type="password"
           value={value}

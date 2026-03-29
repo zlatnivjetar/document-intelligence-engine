@@ -11,15 +11,20 @@ import {
 } from '@/components/ui/card';
 import {
   createAnthropicProvider,
+  createOpenAIProvider,
   extract,
   type ExtractOptions,
   type ExtractionInput,
 } from '@/lib/docpipe';
 import { ApiKeyField } from '@/components/docpipe/api-key-field';
+import { ProviderSelector } from '@/components/docpipe/provider-selector';
 import { ResultsPreview } from '@/components/docpipe/results-preview';
 import { TemplateSelector } from '@/components/docpipe/template-selector';
 import { UploadDropzone } from '@/components/docpipe/upload-dropzone';
 import {
+  DOCPIPE_PROVIDER_STORAGE_KEY,
+  getDocpipeApiKeyStorageKey,
+  type DocpipeProvider,
   useSessionStorageState,
 } from '@/hooks/use-session-storage';
 import { readFileAsBase64, isSupportedDocument } from '@/lib/file-input';
@@ -33,6 +38,29 @@ const UNSUPPORTED_FILE_ERROR =
   'That file is not supported. Use PDF, PNG, or JPG and try again.';
 
 type SelectedTemplateId = BuiltInTemplateId | '';
+
+const PROVIDER_COPY: Record<
+  DocpipeProvider,
+  {
+    apiKeyLabel: string;
+    apiKeyPlaceholder: string;
+    inputId: string;
+    name: string;
+  }
+> = {
+  anthropic: {
+    apiKeyLabel: 'Anthropic API key',
+    apiKeyPlaceholder: 'sk-ant-...',
+    inputId: 'anthropic-api-key',
+    name: 'Anthropic',
+  },
+  openai: {
+    apiKeyLabel: 'OpenAI API key',
+    apiKeyPlaceholder: 'sk-proj-...',
+    inputId: 'openai-api-key',
+    name: 'OpenAI',
+  },
+};
 
 function getTemplateById(
   templateId: SelectedTemplateId,
@@ -60,11 +88,19 @@ export function DocpipeWorkspace(): React.JSX.Element {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [selectedTemplateId, setSelectedTemplateId] =
     useState<SelectedTemplateId>('');
-  const [apiKey, setApiKey] = useSessionStorageState('docpipe.anthropicApiKey', '');
+  const [provider, setProvider] = useSessionStorageState<DocpipeProvider>(
+    DOCPIPE_PROVIDER_STORAGE_KEY,
+    'anthropic',
+  );
+  const [apiKey, setApiKey] = useSessionStorageState(
+    getDocpipeApiKeyStorageKey(provider),
+    '',
+  );
   const [isExtracting, setIsExtracting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [resultJson, setResultJson] = useState<string | null>(null);
   const [overallConfidence, setOverallConfidence] = useState<number | null>(null);
+  const providerCopy = PROVIDER_COPY[provider];
 
   function handleFileSelect(file: File | null): void {
     if (file === null) {
@@ -87,7 +123,7 @@ export function DocpipeWorkspace(): React.JSX.Element {
     }
 
     if (apiKey.trim() === '') {
-      setErrorMessage('Enter your Anthropic API key before extracting.');
+      setErrorMessage(`Enter your ${providerCopy.name} API key before extracting.`);
       return;
     }
 
@@ -110,7 +146,10 @@ export function DocpipeWorkspace(): React.JSX.Element {
 
     try {
       const base64Document = await readFileAsBase64(selectedFile);
-      const model = createAnthropicProvider({ apiKey: apiKey.trim() });
+      const model =
+        provider === 'anthropic'
+          ? createAnthropicProvider({ apiKey: apiKey.trim() })
+          : createOpenAIProvider({ apiKey: apiKey.trim() });
       const result = await extract<Record<string, unknown>>({
         input: {
           document: base64Document,
@@ -141,7 +180,7 @@ export function DocpipeWorkspace(): React.JSX.Element {
               Drop a document to start
             </CardTitle>
             <CardDescription>
-              Add a PDF, PNG, or JPG, paste your Anthropic key for this session,
+              Add a PDF, PNG, or JPG, choose a provider, paste your key for this session,
               then choose a template.
             </CardDescription>
           </CardHeader>
@@ -160,16 +199,27 @@ export function DocpipeWorkspace(): React.JSX.Element {
             <CardHeader>
               <CardTitle className="text-[1.75rem]">Session key</CardTitle>
               <CardDescription>
-                Browser-only storage keeps the key out of the server path.
+                Browser-only storage keeps provider selection and keys out of the server path.
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="space-y-5">
+              <ProviderSelector
+                disabled={isExtracting}
+                onValueChange={(nextValue) => {
+                  setProvider(nextValue);
+                  setErrorMessage(null);
+                }}
+                value={provider}
+              />
               <ApiKeyField
                 disabled={isExtracting}
+                inputId={providerCopy.inputId}
+                label={providerCopy.apiKeyLabel}
                 onChange={(nextValue) => {
                   setApiKey(nextValue);
                   setErrorMessage(null);
                 }}
+                placeholder={providerCopy.apiKeyPlaceholder}
                 value={apiKey}
               />
             </CardContent>
