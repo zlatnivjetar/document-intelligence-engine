@@ -32,6 +32,7 @@
     "@ai-sdk/provider": "^3.0.8",
     "@anthropic-ai/sdk": "^0.80.0",
     "ai": "^6.0.140",
+    "unpdf": "^1.4.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
