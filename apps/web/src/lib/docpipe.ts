@@ -1,21 +1,18 @@
 export {
   createAnthropicProvider,
-  detectPdfType,
   extract,
   invoiceSchema,
   receiptSchema,
-  validateInvoice,
   w2Schema,
-} from '@docpipe/core';
+} from '@docpipe/core/browser';
 
 export type {
   ExtractOptions,
   ExtractionError,
+  ExtractionErrorCode,
   ExtractionInput,
   ExtractionResult,
-  ExtractionWarning,
   InvoiceData,
-  PdfType,
   ReceiptData,
   W2Data,
-} from '@docpipe/core';
+} from '@docpipe/core/browser';
