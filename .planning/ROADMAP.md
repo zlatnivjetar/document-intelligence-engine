@@ -83,7 +83,7 @@ Plans:
   2. User enters their Anthropic API key in the web app; the key is stored in sessionStorage only and never appears in network requests to DocPipe servers
   3. User selects a built-in template from the template selector, triggers extraction, and sees a result appear in-page - confirming extraction runs end-to-end through the browser
   4. The web app deploys to Vercel and the extraction flow works in production - Vercel timeout behavior is confirmed with the PDF parse API route before full polish is added
-**Plans**: TBD
+**Plans**: 1/4 plans complete
 **UI hint**: yes
 
 ### Phase 5: Web App - Results & Export
@@ -119,6 +119,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 1. Monorepo + Types + Provider | 2/2 | Complete | 2026-03-28 |
 | 2. Extraction Pipeline + Invoice Template | 4/4 | Complete | 2026-03-29 |
 | 3. Core Completeness | 6/6 | Complete | 2026-03-29 |
-| 4. Web App - Core Flow | 0/? | Not started | - |
+| 4. Web App - Core Flow | 1/4 | In Progress | - |
 | 5. Web App - Results & Export | 0/? | Not started | - |
 | 6. CLI | 0/? | Not started | - |

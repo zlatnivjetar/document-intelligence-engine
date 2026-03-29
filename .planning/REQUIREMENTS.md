@@ -34,8 +34,8 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Web Application
 
-- [ ] **WEB-01**: BYOK API key input stored in browser only (localStorage/sessionStorage), never sent to server
-- [ ] **WEB-02**: Live extraction preview - results appear in-page as extraction completes
+- [x] **WEB-01**: BYOK API key input stored in browser only (localStorage/sessionStorage), never sent to server
+- [x] **WEB-02**: Live extraction preview - results appear in-page as extraction completes
 - [ ] **WEB-03**: Results displayed in table with field-level confidence color-coding (green >= 0.85, amber 0.60-0.84, red < 0.60)
 - [ ] **WEB-04**: Export results as JSON (file download)
 - [ ] **WEB-05**: Export results as CSV (file download)
@@ -120,8 +120,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | TMPL-02 | Phase 3 | Complete |
 | TMPL-03 | Phase 3 | Complete |
 | TMPL-04 | Phase 3 | Complete |
-| WEB-01 | Phase 4 | Pending |
-| WEB-02 | Phase 4 | Pending |
+| WEB-01 | Phase 4 | Complete |
+| WEB-02 | Phase 4 | Complete |
 | WEB-03 | Phase 5 | Pending |
 | WEB-04 | Phase 5 | Pending |
 | WEB-05 | Phase 5 | Pending |

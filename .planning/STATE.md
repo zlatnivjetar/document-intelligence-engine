@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: ready
-stopped_at: Phase 03 complete
-last_updated: "2026-03-29T11:39:06.5418972+02:00"
-last_activity: 2026-03-29 -- Phase 03 complete
+status: executing
+stopped_at: Completed 04-01-PLAN.md
+last_updated: "2026-03-29T10:40:50.189Z"
+last_activity: 2026-03-29
 progress:
   total_phases: 6
   completed_phases: 3
   total_plans: 16
-  completed_plans: 12
-  percent: 91
+  completed_plans: 13
+  percent: 81
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-29)
 
 **Core value:** A user can upload a document and get clean, validated structured data back - reliably, every time.
-**Current focus:** Phase 04 planning
+**Current focus:** Phase 04 — web-app-core-flow
 
 ## Current Position
 
-Phase: 04 (web-app-core-flow) - READY
-Plan: Not started
-Status: Phase 03 complete - ready to discuss or plan Phase 04
-Last activity: 2026-03-29 -- Phase 03 complete
+Phase: 04 (web-app-core-flow) — EXECUTING
+Plan: 2 of 4
+Status: Ready to execute
+Last activity: 2026-03-29
 
-Progress: [█████████░] 91%
+Progress: [████████░░] 81%
 
 ## Performance Metrics
 
@@ -69,6 +69,7 @@ Progress: [█████████░] 91%
 | Phase 03 P04 | 1 min | 2 tasks | 2 files |
 | Phase 03 P05 | 2 min | 2 tasks | 5 files |
 | Phase 03 P06 | 1 min | 2 tasks | 5 files |
+| Phase 04 P01 | 6 min | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -103,6 +104,8 @@ Recent decisions affecting current work:
 - [Phase 03]: Phase 03-03: validators run only after extractCore succeeds - keeping validators outside the schema-validation retry loop preserves the existing extraction error semantics while still allowing callers to attach domain-specific checks.
 - [Phase 03]: Known-answer PDF evidence lives under packages/core/test/fixtures - the repo keeps real verification artifacts while npm publishing still ships only dist files.
 - [Phase 03]: analyzePdfRouting returns extracted text only for genuine text-layer PDFs - extract() branches on that analysis while routingOverride remains a metadata seam when real extracted text is unavailable.
+- [Phase 04]: Web code imports a dedicated @docpipe/core/browser surface so client code avoids non-browser-safe helpers from the root package.
+- [Phase 04]: Shared extract() normalizes browser-native binaries to base64 while decoding PDF base64 back to bytes for routing analysis.
 
 ### Pending Todos
 
@@ -114,6 +117,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-29T08:36:46.064Z
-Stopped at: Phase 03 complete
-Resume file: .planning/ROADMAP.md
+Last session: 2026-03-29T10:39:46.473Z
+Stopped at: Completed 04-01-PLAN.md
+Resume file: None
