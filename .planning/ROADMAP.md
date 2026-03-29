@@ -68,7 +68,7 @@ Plans:
 
 Plans:
 - [x] 03-01-PLAN.md - Receipt template (TMPL-02) and W-2 template (TMPL-03) with unit tests, wired into barrel
-- [ ] 03-02-PLAN.md - PDF type detection with unpdf (INPUT-03): detectPdfType(), pdfType annotation on ExtractionResult
+- [x] 03-02-PLAN.md - PDF type detection with unpdf (INPUT-03): detectPdfType(), pdfType annotation on ExtractionResult
 - [ ] 03-03-PLAN.md - Business-rule validators (EXTRACT-07) + custom schema end-to-end test (TMPL-04)
 - [ ] 03-04-PLAN.md - Thin consumer verification: web and CLI import from @docpipe/core (LIB-03), human checkpoint
 

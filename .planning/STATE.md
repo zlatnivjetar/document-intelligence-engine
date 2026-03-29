@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 03-01-PLAN.md
-last_updated: "2026-03-29T08:24:23.228Z"
+stopped_at: Completed 03-02-PLAN.md
+last_updated: "2026-03-29T08:29:09.893Z"
 last_activity: 2026-03-29
 progress:
   total_phases: 6
   completed_phases: 2
   total_plans: 10
-  completed_plans: 7
+  completed_plans: 8
   percent: 60
 ---
 
@@ -63,6 +63,7 @@ Progress: [######....] 60%
 | Phase 02 P03 | 2 min | 2 tasks | 3 files |
 | Phase 02 P04 | 4 min | 3 tasks | 3 files |
 | Phase 03 P01 | 2 min | 2 tasks | 5 files |
+| Phase 03 P02 | 2 min | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -91,6 +92,8 @@ Recent decisions affecting current work:
 - [Phase 02]: Installed-package smoke test asserts EXTRACTION_FAILED path - using a fake model and the public error wrapper is more reliable than deep-mocking ai inside an installed tarball while still proving no missing-module failures.
 - [Phase 03]: Phase 03-01: built-in templates mirror the invoice schema/export pattern — Keeping receipt and W-2 on the same explicit-shape Zod pattern preserves isolatedDeclarations compatibility and a single public template contract in @docpipe/core.
 - [Phase 03]: Phase 03-01: nullable template fields represent missing document values explicitly — Receipt subtotal or tax and W-2 state fields can be absent on real documents, so nullable fields preserve a stable result shape while still expressing missing data.
+- [Phase 03]: Phase 03-02: PDF routing uses unpdf mergePages text extraction with a 50-character threshold — Merging pages before counting non-whitespace characters keeps the classifier tied to overall document text density and provides a stable threshold between scanned and text-layer PDFs.
+- [Phase 03]: Phase 03-02: routingOverride keeps PDF-path tests deterministic — Allowing extract() to accept a routing override avoids handing fake PDF buffers to the real parser while still proving both routing outcomes through the extraction API.
 
 ### Pending Todos
 
@@ -104,6 +107,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-29T08:24:03.854Z
-Stopped at: Completed 03-01-PLAN.md
-Resume file: .planning/phases/03-core-completeness/03-02-PLAN.md
+Last session: 2026-03-29T08:28:58.128Z
+Stopped at: Completed 03-02-PLAN.md
+Resume file: .planning/phases/03-core-completeness/03-03-PLAN.md
