@@ -46,7 +46,13 @@ Plans:
   3. Engine returns distinct, actionable error states for: invalid API key (401 — no retry), rate limit (429 — no retry), unsupported file type, extraction failure, and validation failure after retries
   4. `@docpipe/core` can be installed in a fresh project outside the monorepo and the `extract()` function works with no missing-module errors — the publish pipeline is validated end-to-end
   5. PDF files and image files (PNG, JPG) are both accepted as valid input to the extraction pipeline
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Core extract() function with document routing and per-field confidence scoring
+- [ ] 02-02-PLAN.md — Retry loop and error classification (all 5 ExtractionError codes)
+- [ ] 02-03-PLAN.md — Invoice Zod schema (TMPL-01) with all 10 required fields
+- [ ] 02-04-PLAN.md — npm publish pipeline audit and consumer install verification
 
 ### Phase 3: Core Completeness
 **Goal**: `@docpipe/core` is feature-complete — all three built-in templates are present and fixture-tested, the PDF routing layer handles text-layer and image-only documents correctly, business-rule validators catch anomalies, and custom schemas work end-to-end
@@ -103,7 +109,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Monorepo + Types + Provider | 0/2 | Not started | - |
-| 2. Extraction Pipeline + Invoice Template | 0/? | Not started | - |
+| 2. Extraction Pipeline + Invoice Template | 0/4 | Not started | - |
 | 3. Core Completeness | 0/? | Not started | - |
 | 4. Web App — Core Flow | 0/? | Not started | - |
 | 5. Web App — Results & Export | 0/? | Not started | - |
