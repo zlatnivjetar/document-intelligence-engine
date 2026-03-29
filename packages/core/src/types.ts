@@ -1,10 +1,10 @@
 /**
  * Input document for extraction.
- * Web app sends base64 string. CLI sends Buffer.
- * Both work with Claude's native document block (per D-13).
+ * Web app sends base64 strings or browser-native binary data. CLI sends Buffer.
+ * All inputs normalize to Claude's native document block (per D-13).
  */
 export interface ExtractionInput {
-  document: Buffer | string;
+  document: string | Uint8Array | ArrayBuffer | Buffer;
   mimeType: 'application/pdf' | 'image/png' | 'image/jpeg';
 }
 

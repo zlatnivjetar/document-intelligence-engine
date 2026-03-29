@@ -12,6 +12,11 @@
       "types": "./dist/index.d.mts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
+    },
+    "./browser": {
+      "types": "./dist/browser.d.mts",
+      "import": "./dist/browser.mjs",
+      "require": "./dist/browser.cjs"
     }
   },
   "files": [
@@ -21,7 +26,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsdown src/index.ts --format esm,cjs --dts",
+    "build": "tsdown src/index.ts src/browser.ts --format esm,cjs --dts",
     "dev": "tsdown src/index.ts --format esm,cjs --dts --watch",
     "test": "vitest run",
     "type-check": "tsc --noEmit",

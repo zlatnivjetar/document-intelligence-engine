@@ -24,6 +24,11 @@ const SUPPORTED_MIME_TYPES = [
 ] as const;
 const MAX_RETRIES = 2;
 
+type BrowserBase64Api = {
+  atob?: (data: string) => string;
+  btoa?: (data: string) => string;
+};
+
 export interface ExtractOptions<T> {
   input: ExtractionInput;
   schema: z.ZodSchema<T>;
@@ -129,6 +134,92 @@ function isValidationError(error: unknown): boolean {
   );
 }
 
+function isNodeBuffer(value: unknown): value is Buffer {
+  return typeof Buffer !== 'undefined' && Buffer.isBuffer(value);
+}
+
+function bytesToBase64(bytes: Uint8Array): string {
+  if (typeof Buffer !== 'undefined') {
+    return Buffer.from(bytes).toString('base64');
+  }
+
+  let binary = '';
+  for (const byte of bytes) {
+    binary += String.fromCharCode(byte);
+  }
+
+  const browserBase64 = (globalThis as BrowserBase64Api).btoa;
+  if (!browserBase64) {
+    throw new Error('Base64 encoding is not available in this runtime');
+  }
+
+  return browserBase64(binary);
+}
+
+function base64ToBytes(base64: string): Uint8Array {
+  if (typeof Buffer !== 'undefined') {
+    return Buffer.from(base64, 'base64');
+  }
+
+  const browserBase64 = (globalThis as BrowserBase64Api).atob;
+  if (!browserBase64) {
+    throw new Error('Base64 decoding is not available in this runtime');
+  }
+
+  const binary = browserBase64(base64);
+  const bytes = new Uint8Array(binary.length);
+
+  for (let index = 0; index < binary.length; index++) {
+    bytes[index] = binary.charCodeAt(index);
+  }
+
+  return bytes;
+}
+
+function toBase64Document(
+  document: string | Uint8Array | ArrayBuffer | Buffer,
+): string {
+  if (typeof document === 'string') {
+    return document;
+  }
+
+  if (isNodeBuffer(document)) {
+    return document.toString('base64');
+  }
+
+  if (document instanceof ArrayBuffer) {
+    return bytesToBase64(new Uint8Array(document));
+  }
+
+  if (document instanceof Uint8Array) {
+    return bytesToBase64(document);
+  }
+
+  throw new Error('Unsupported document input type');
+}
+
+function toPdfRoutingBytes(
+  document: string | Uint8Array | ArrayBuffer | Buffer,
+): Uint8Array {
+  if (typeof document === 'string') {
+    return base64ToBytes(document);
+  }
+
+  if (isNodeBuffer(document)) {
+    return document;
+  }
+
+  if (document instanceof ArrayBuffer) {
+    return new Uint8Array(document);
+  }
+
+  if (document instanceof Uint8Array) {
+    return document;
+  }
+
+  throw new Error('Unsupported document input type');
+}
+
 function buildUserContent(
   input: ExtractionInput,
   pdfRoutingAnalysis?: PdfRoutingAnalysis,
@@ -150,9 +241,7 @@ function buildUserContent(
     ];
   }
 
-  const base64Document = Buffer.isBuffer(input.document)
-    ? input.document.toString('base64')
-    : input.document;
+  const base64Document = toBase64Document(input.document);
 
   return [
     {
@@ -238,10 +327,8 @@ export async function extract<T>(
 
   let pdfRoutingAnalysis: PdfRoutingAnalysis | undefined;
   if (options.input.mimeType === 'application/pdf') {
-    const pdfBuffer = Buffer.isBuffer(options.input.document)
-      ? options.input.document
-      : Buffer.from(options.input.document, 'base64');
-    const analyzedRouting = await analyzePdfRouting(pdfBuffer);
+    const pdfBytes = toPdfRoutingBytes(options.input.document);
+    const analyzedRouting = await analyzePdfRouting(pdfBytes as Buffer);
 
     pdfRoutingAnalysis =
       analyzedRouting.pdfType === 'text-layer' && analyzedRouting.extractedText
