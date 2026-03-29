@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: ready
-stopped_at: Phase 02 complete
-last_updated: "2026-03-29T07:04:16.6991503Z"
+status: executing
+stopped_at: Completed 03-01-PLAN.md
+last_updated: "2026-03-29T08:24:23.228Z"
 last_activity: 2026-03-29
 progress:
   total_phases: 6
   completed_phases: 2
   total_plans: 10
-  completed_plans: 6
+  completed_plans: 7
   percent: 60
 ---
 
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-29)
 
 **Core value:** A user can upload a document and get clean, validated structured data back - reliably, every time.
-**Current focus:** Phase 03 - core-completeness
+**Current focus:** Phase 03 — core-completeness
 
 ## Current Position
 
-Phase: 03 (core-completeness) - READY
-Plan: Not started
-Status: Phase 02 complete - ready to plan
+Phase: 03 (core-completeness) — EXECUTING
+Plan: 2 of 4
+Status: Ready to execute
 Last activity: 2026-03-29
 
 Progress: [######....] 60%
@@ -62,6 +62,7 @@ Progress: [######....] 60%
 | Phase 02 P02 | 2 min | 1 task | 2 files |
 | Phase 02 P03 | 2 min | 2 tasks | 3 files |
 | Phase 02 P04 | 4 min | 3 tasks | 3 files |
+| Phase 03 P01 | 2 min | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -88,6 +89,8 @@ Recent decisions affecting current work:
 - [Phase 02]: Invoice schema uses explicit shape annotations - the exported Zod schema needs explicit internal shape types to compile under isolatedDeclarations without weakening the template contract.
 - [Phase 02]: Consumer verification audits tarball contents before install - the publish smoke test rejects tarballs that leak src, node_modules, or test files before attempting the external install.
 - [Phase 02]: Installed-package smoke test asserts EXTRACTION_FAILED path - using a fake model and the public error wrapper is more reliable than deep-mocking ai inside an installed tarball while still proving no missing-module failures.
+- [Phase 03]: Phase 03-01: built-in templates mirror the invoice schema/export pattern — Keeping receipt and W-2 on the same explicit-shape Zod pattern preserves isolatedDeclarations compatibility and a single public template contract in @docpipe/core.
+- [Phase 03]: Phase 03-01: nullable template fields represent missing document values explicitly — Receipt subtotal or tax and W-2 state fields can be absent on real documents, so nullable fields preserve a stable result shape while still expressing missing data.
 
 ### Pending Todos
 
@@ -101,6 +104,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-29T07:04:16.6991503Z
-Stopped at: Phase 02 complete
-Resume file: .planning/phases/03-core-completeness/03-01-PLAN.md
+Last session: 2026-03-29T08:24:03.854Z
+Stopped at: Completed 03-01-PLAN.md
+Resume file: .planning/phases/03-core-completeness/03-02-PLAN.md
