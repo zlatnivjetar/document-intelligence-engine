@@ -12,7 +12,7 @@ DocPipe is built in six sequential phases that follow the dependency chain manda
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Monorepo + Types + Provider** - Monorepo scaffold (Turborepo + pnpm), core TypeScript types/interfaces, provider abstraction layer with Anthropic implementation
+- [x] **Phase 1: Monorepo + Types + Provider** - Monorepo scaffold (Turborepo + pnpm), core TypeScript types/interfaces, provider abstraction layer with Anthropic implementation
 - [ ] **Phase 2: Extraction Pipeline + Invoice Template** - Extraction pipeline (extract function, Zod validation, retry logic, error handling, confidence scoring), invoice template, npm publish pipeline
 - [ ] **Phase 3: Core Completeness** - Receipt and W-2 templates, PDF routing (text vs image), business-rule validators, custom schema support, fixture tests, thin consumer verification
 - [ ] **Phase 4: Web App — Core Flow** - Upload UI (drag-and-drop), BYOK key management, template selection, trigger extraction, basic results display
@@ -49,7 +49,7 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Core extract() function with document routing and per-field confidence scoring
+- [x] 02-01-PLAN.md — Core extract() function with document routing and per-field confidence scoring
 - [ ] 02-02-PLAN.md — Retry loop and error classification (all 5 ExtractionError codes)
 - [ ] 02-03-PLAN.md — Invoice Zod schema (TMPL-01) with all 10 required fields
 - [ ] 02-04-PLAN.md — npm publish pipeline audit and consumer install verification
@@ -108,8 +108,8 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Monorepo + Types + Provider | 0/2 | Not started | - |
-| 2. Extraction Pipeline + Invoice Template | 0/4 | Not started | - |
+| 1. Monorepo + Types + Provider | 2/2 | Complete | 2026-03-28 |
+| 2. Extraction Pipeline + Invoice Template | 1/4 | In Progress | - |
 | 3. Core Completeness | 0/? | Not started | - |
 | 4. Web App — Core Flow | 0/? | Not started | - |
 | 5. Web App — Results & Export | 0/? | Not started | - |

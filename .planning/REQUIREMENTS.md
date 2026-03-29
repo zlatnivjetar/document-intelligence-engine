@@ -9,16 +9,16 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Document Input
 
-- [ ] **INPUT-01**: User can upload PDF files for extraction
-- [ ] **INPUT-02**: User can upload image files (PNG, JPG) for extraction
+- [x] **INPUT-01**: User can upload PDF files for extraction
+- [x] **INPUT-02**: User can upload image files (PNG, JPG) for extraction
 - [ ] **INPUT-03**: Engine detects PDF type (text-layer vs image-only) and routes to appropriate processing path
 - [ ] **INPUT-04**: Web app provides drag-and-drop upload with visual feedback and file type validation
 
 ### Extraction Engine
 
-- [ ] **EXTRACT-01**: Engine extracts structured data from documents using vision-capable LLM
-- [ ] **EXTRACT-02**: Extraction is schema-driven — user defines output structure using Zod schemas
-- [ ] **EXTRACT-03**: Each extracted field includes a confidence score
+- [x] **EXTRACT-01**: Engine extracts structured data from documents using vision-capable LLM
+- [x] **EXTRACT-02**: Extraction is schema-driven — user defines output structure using Zod schemas
+- [x] **EXTRACT-03**: Each extracted field includes a confidence score
 - [ ] **EXTRACT-04**: Engine automatically retries extraction when output fails Zod validation (max 2 retries, error fed back to model)
 - [ ] **EXTRACT-05**: Engine provides clear error states: invalid API key, unsupported file type, extraction failure, validation failure after retries
 - [x] **EXTRACT-06**: Provider abstraction layer — start with one LLM provider (Claude), clean interface for adding more
@@ -104,13 +104,13 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INPUT-01 | Phase 2 | Pending |
-| INPUT-02 | Phase 2 | Pending |
+| INPUT-01 | Phase 2 | Complete |
+| INPUT-02 | Phase 2 | Complete |
 | INPUT-03 | Phase 3 | Pending |
 | INPUT-04 | Phase 4 | Pending |
-| EXTRACT-01 | Phase 2 | Pending |
-| EXTRACT-02 | Phase 2 | Pending |
-| EXTRACT-03 | Phase 2 | Pending |
+| EXTRACT-01 | Phase 2 | Complete |
+| EXTRACT-02 | Phase 2 | Complete |
+| EXTRACT-03 | Phase 2 | Complete |
 | EXTRACT-04 | Phase 2 | Pending |
 | EXTRACT-05 | Phase 2 | Pending |
 | EXTRACT-06 | Phase 1 | Complete |
