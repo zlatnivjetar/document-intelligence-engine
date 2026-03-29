@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-01-PLAN.md
-last_updated: "2026-03-29T06:35:22.964Z"
+stopped_at: Completed 02-02-PLAN.md
+last_updated: "2026-03-29T06:41:49.465Z"
 last_activity: 2026-03-29
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 6
-  completed_plans: 3
-  percent: 50
+  completed_plans: 4
+  percent: 67
 ---
 
 # Project State
@@ -26,36 +26,37 @@ See: .planning/PROJECT.md (updated 2026-03-28)
 ## Current Position
 
 Phase: 02 (extraction-pipeline-invoice-template) - EXECUTING
-Plan: 2 of 4
+Plan: 3 of 4
 Status: Ready to execute
 Last activity: 2026-03-29
 
-Progress: [█████░░░░░] 50%
+Progress: [███████░░░] 67%
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 3
-- Average duration: 13 min
-- Total execution time: 39 min
+- Total plans completed: 4
+- Average duration: 10 min
+- Total execution time: 41 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01 | 2 | 34 min | 17 min |
-| 02 | 1 | 5 min | 5 min |
+| 02 | 2 | 7 min | 4 min |
 
 **Recent Trend:**
 
-- Last 3 plans: 14 min, 20 min, 5 min
+- Last 4 plans: 14 min, 20 min, 5 min, 2 min
 - Trend: improving
 
 *Updated after each plan completion*
 | Phase 01-monorepo-types-provider P01 | 14 min | 2 tasks | 16 files |
 | Phase 01-monorepo-types-provider P02 | 20 min | 3 tasks | 10 files |
 | Phase 02 P01 | 5 min | 2 tasks | 3 files |
+| Phase 02 P02 | 2 min | 1 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -76,6 +77,8 @@ Recent decisions affecting current work:
 - [Phase 01-monorepo-types-provider]: isolatedDeclarations requires explicit return type annotations on all exported functions including Next.js page components
 - [Phase 02]: AI SDK file parts use mediaType - ai@6.0.141 UserModelMessage file parts require mediaType, so the plan's older mimeType example was corrected during 02-01.
 - [Phase 02]: Non-object schemas use z.record confidence fallback - preserves dynamic top-level confidence keys for flexible schemas instead of stripping them with an empty object schema.
+- [Phase 02]: Unsupported mime types fail before model calls - the retry wrapper rejects unsupported inputs before generateObject() so invalid files do not consume tokens.
+- [Phase 02]: Validation retries append schema errors to the prompt - each retry reuses extractCore() and adds the previous validation failure as corrective context for the model.
 
 ### Pending Todos
 
@@ -90,6 +93,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-29T06:35:22.964Z
-Stopped at: Completed 02-01-PLAN.md
+Last session: 2026-03-29T06:41:49.465Z
+Stopped at: Completed 02-02-PLAN.md
 Resume file: None
