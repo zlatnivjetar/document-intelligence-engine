@@ -60,8 +60,7 @@ export function toExtractionErrorState(error: unknown): ResultErrorState {
       return {
         code,
         title: 'API key rejected',
-        message:
-          'Your Anthropic API key was rejected by Anthropic. Check the key and retry.',
+        message: 'The selected provider rejected this API key. Check the key and retry.',
       };
     case 'UNSUPPORTED_FILE_TYPE':
       return {
@@ -88,7 +87,8 @@ export function toExtractionErrorState(error: unknown): ResultErrorState {
       return {
         code,
         title: 'Rate limited',
-        message: 'Anthropic rate-limited this request. Wait a moment, then retry.',
+        message:
+          'The selected provider rate-limited this request. Wait a moment, then retry.',
       };
     default:
       return {

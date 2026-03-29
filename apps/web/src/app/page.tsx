@@ -20,8 +20,8 @@ export default function Home(): React.JSX.Element {
             Drop a document to start
           </p>
           <p className="mt-4 max-w-xl text-base text-[var(--color-muted)]">
-            Add a PDF, PNG, or JPG, paste your Anthropic key for this session,
-            then choose a template.
+            Add a PDF, PNG, or JPG, choose a provider, paste your key for this
+            session, then choose a template.
           </p>
         </div>
 
