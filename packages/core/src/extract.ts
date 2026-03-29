@@ -2,8 +2,9 @@ import type { LanguageModelV3 } from '@ai-sdk/provider';
 import { generateObject } from 'ai';
 import type { UserModelMessage } from 'ai';
 import { z } from 'zod';
-import { detectPdfType } from './pdf-router.js';
+import { analyzePdfRouting } from './pdf-router.js';
 import type { PdfType } from './pdf-router.js';
+import type { PdfRoutingAnalysis } from './pdf-router.js';
 import type {
   ExtractionError,
   ExtractionInput,
@@ -128,14 +129,50 @@ function isValidationError(error: unknown): boolean {
   );
 }
 
-async function extractCore<T>(
-  options: ExtractOptions<T>,
-  previousErrors: string[] = [],
-): Promise<ExtractionResult<T>> {
-  const { input, model, schema, schemaName, schemaDescription } = options;
+function buildUserContent(
+  input: ExtractionInput,
+  pdfRoutingAnalysis?: PdfRoutingAnalysis,
+): UserModelMessage['content'] {
+  if (
+    input.mimeType === 'application/pdf' &&
+    pdfRoutingAnalysis?.pdfType === 'text-layer' &&
+    pdfRoutingAnalysis.extractedText
+  ) {
+    return [
+      {
+        type: 'text',
+        text: 'Extract structured data from this text-layer PDF. Use the extracted text exactly as provided.',
+      },
+      {
+        type: 'text',
+        text: pdfRoutingAnalysis.extractedText,
+      },
+    ];
+  }
+
   const base64Document = Buffer.isBuffer(input.document)
     ? input.document.toString('base64')
     : input.document;
+
+  return [
+    {
+      type: 'text',
+      text: 'Extract structured data from this document.',
+    },
+    {
+      type: 'file',
+      data: base64Document,
+      mediaType: input.mimeType,
+    },
+  ];
+}
+
+async function extractCore<T>(
+  options: ExtractOptions<T>,
+  pdfRoutingAnalysis: PdfRoutingAnalysis | undefined,
+  previousErrors: string[] = [],
+): Promise<ExtractionResult<T>> {
+  const { input, model, schema, schemaName, schemaDescription } = options;
   const topLevelKeys = getTopLevelKeys(schema);
   const responseSchema = z.object({
     extracted: schema,
@@ -144,17 +181,7 @@ async function extractCore<T>(
 
   const userMessage = {
     role: 'user' as const,
-    content: [
-      {
-        type: 'text' as const,
-        text: 'Extract structured data from this document.',
-      },
-      {
-        type: 'file' as const,
-        data: base64Document,
-        mediaType: input.mimeType,
-      },
-    ],
+    content: buildUserContent(input, pdfRoutingAnalysis),
   };
   const messages: UserModelMessage[] = [userMessage];
 
@@ -209,29 +236,39 @@ export async function extract<T>(
     } satisfies ExtractionError;
   }
 
-  let pdfType: PdfType | undefined;
+  let pdfRoutingAnalysis: PdfRoutingAnalysis | undefined;
   if (options.input.mimeType === 'application/pdf') {
-    pdfType =
-      options.routingOverride ??
-      (await detectPdfType(
-        Buffer.isBuffer(options.input.document)
-          ? options.input.document
-          : Buffer.from(options.input.document, 'base64'),
-      ));
+    const pdfBuffer = Buffer.isBuffer(options.input.document)
+      ? options.input.document
+      : Buffer.from(options.input.document, 'base64');
+    const analyzedRouting = await analyzePdfRouting(pdfBuffer);
+
+    pdfRoutingAnalysis =
+      analyzedRouting.pdfType === 'text-layer' && analyzedRouting.extractedText
+        ? analyzedRouting
+        : options.routingOverride
+          ? { pdfType: options.routingOverride }
+          : analyzedRouting;
   }
 
   let lastValidationErrors: string[] = [];
 
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
     try {
-      const result = await extractCore(options, lastValidationErrors);
+      const result = await extractCore(
+        options,
+        pdfRoutingAnalysis,
+        lastValidationErrors,
+      );
       const warnings = options.validators?.flatMap((validator) =>
         validator(result.data),
       );
       const output =
         warnings && warnings.length > 0 ? { ...result, warnings } : result;
 
-      return pdfType === undefined ? output : { ...output, pdfType };
+      return pdfRoutingAnalysis === undefined
+        ? output
+        : { ...output, pdfType: pdfRoutingAnalysis.pdfType };
     } catch (error: unknown) {
       if (isExtractionError(error)) {
         throw error;

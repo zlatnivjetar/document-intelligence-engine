@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { detectPdfType } from './pdf-router.js';
+import { analyzePdfRouting, detectPdfType } from './pdf-router.js';
 
 vi.mock('unpdf', () => ({
   extractText: vi.fn(),
@@ -86,5 +86,34 @@ describe('detectPdfType', () => {
     await expect(detectPdfType(Buffer.from('fake-pdf'))).resolves.toBe(
       'image-only',
     );
+  });
+});
+
+describe('analyzePdfRouting', () => {
+  beforeEach(() => {
+    vi.resetAllMocks();
+  });
+
+  it('returns image-only when normalized extractedText stays below the threshold', async () => {
+    mockExtractText.mockResolvedValueOnce({
+      totalPages: 1,
+      text: '  Routing Sample Invoice  ',
+    });
+
+    await expect(analyzePdfRouting(Buffer.from('fake-pdf'))).resolves.toEqual({
+      pdfType: 'image-only',
+    });
+  });
+
+  it('includes extractedText when extracted text meets the threshold', async () => {
+    mockExtractText.mockResolvedValueOnce({
+      totalPages: 1,
+      text: `  ${'a'.repeat(50)}  `,
+    });
+
+    await expect(analyzePdfRouting(Buffer.from('fake-pdf'))).resolves.toEqual({
+      pdfType: 'text-layer',
+      extractedText: 'a'.repeat(50),
+    });
   });
 });
