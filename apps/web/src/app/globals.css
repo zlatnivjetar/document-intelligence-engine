@@ -13,6 +13,9 @@
   --color-muted: #63594e;
   --color-accent: #c8643b;
   --color-danger: #b42318;
+  --color-confidence-high: #2f855a;
+  --color-confidence-medium: #b7791f;
+  --color-confidence-low: #c53030;
   --radius-lg: 28px;
   --radius-md: 18px;
   --shadow-card: 0 20px 60px rgba(72, 47, 28, 0.12);
