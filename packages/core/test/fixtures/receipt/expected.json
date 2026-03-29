@@ -1,0 +1,27 @@
+{
+  "data": {
+    "merchantName": "Corner Cafe",
+    "merchantAddress": "42 Oak Street, Portland, OR 97201",
+    "date": "2024-03-15",
+    "lineItems": [
+      {
+        "description": "Latte",
+        "quantity": 1,
+        "unitPrice": 5.5,
+        "amount": 5.5
+      }
+    ],
+    "subtotal": 5.5,
+    "tax": 0.55,
+    "total": 6.05
+  },
+  "confidence": {
+    "merchantName": 0.99,
+    "merchantAddress": 0.98,
+    "date": 0.95,
+    "lineItems": 0.97,
+    "subtotal": 0.96,
+    "tax": 0.95,
+    "total": 0.97
+  }
+}

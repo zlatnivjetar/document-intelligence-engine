@@ -1,0 +1,30 @@
+{
+  "data": {
+    "employerName": "Acme Corporation",
+    "employerAddress": "100 Corporate Blvd, Chicago, IL 60601",
+    "employerEin": "12-3456789",
+    "employeeName": "Jane Smith",
+    "employeeAddress": "456 Elm Ave, Chicago, IL 60602",
+    "employeeSsn": "XXX-XX-1234",
+    "taxYear": "2023",
+    "wagesTipsOtherComp": 75000,
+    "federalIncomeTaxWithheld": 12500,
+    "stateWages": 75000,
+    "stateTaxWithheld": 4500,
+    "stateCode": "IL"
+  },
+  "confidence": {
+    "employerName": 0.98,
+    "employerAddress": 0.97,
+    "employerEin": 0.96,
+    "employeeName": 0.98,
+    "employeeAddress": 0.97,
+    "employeeSsn": 0.95,
+    "taxYear": 0.99,
+    "wagesTipsOtherComp": 0.95,
+    "federalIncomeTaxWithheld": 0.95,
+    "stateWages": 0.95,
+    "stateTaxWithheld": 0.95,
+    "stateCode": 0.96
+  }
+}
