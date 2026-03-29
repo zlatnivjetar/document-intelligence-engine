@@ -7,6 +7,7 @@ import type { PdfType } from './pdf-router.js';
 import type {
   ExtractionError,
   ExtractionInput,
+  ExtractionWarning,
   ExtractionResult,
 } from './types.js';
 
@@ -29,6 +30,7 @@ export interface ExtractOptions<T> {
   schemaName?: string;
   schemaDescription?: string;
   routingOverride?: PdfType;
+  validators?: Array<(data: T) => ExtractionWarning[]>;
 }
 
 function getTopLevelKeys<T>(schema: z.ZodSchema<T>): string[] {
@@ -223,8 +225,13 @@ export async function extract<T>(
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
     try {
       const result = await extractCore(options, lastValidationErrors);
+      const warnings = options.validators?.flatMap((validator) =>
+        validator(result.data),
+      );
+      const output =
+        warnings && warnings.length > 0 ? { ...result, warnings } : result;
 
-      return pdfType === undefined ? result : { ...result, pdfType };
+      return pdfType === undefined ? output : { ...output, pdfType };
     } catch (error: unknown) {
       if (isExtractionError(error)) {
         throw error;

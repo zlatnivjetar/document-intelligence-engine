@@ -6,6 +6,7 @@ export type {
   ExtractionResult,
   ExtractionError,
   ExtractionErrorCode,
+  ExtractionWarning,
 } from './types.js';
 
 // Provider factory: createAnthropicProvider, AnthropicProviderOptions
@@ -27,3 +28,6 @@ export { w2Schema } from './templates/w2.js';
 // PDF routing utilities
 export type { PdfType } from './pdf-router.js';
 export { detectPdfType } from './pdf-router.js';
+
+// Business-rule validators
+export { validateInvoice } from './validators/invoice-validators.js';
