@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 03-02-PLAN.md
-last_updated: "2026-03-29T08:29:09.893Z"
+stopped_at: Completed 03-03-PLAN.md
+last_updated: "2026-03-29T08:33:56.890Z"
 last_activity: 2026-03-29
 progress:
   total_phases: 6
   completed_phases: 2
   total_plans: 10
-  completed_plans: 8
+  completed_plans: 9
   percent: 60
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-03-29)
 ## Current Position
 
 Phase: 03 (core-completeness) — EXECUTING
-Plan: 2 of 4
+Plan: 3 of 4
 Status: Ready to execute
 Last activity: 2026-03-29
 
@@ -94,6 +94,8 @@ Recent decisions affecting current work:
 - [Phase 03]: Phase 03-01: nullable template fields represent missing document values explicitly — Receipt subtotal or tax and W-2 state fields can be absent on real documents, so nullable fields preserve a stable result shape while still expressing missing data.
 - [Phase 03]: Phase 03-02: PDF routing uses unpdf mergePages text extraction with a 50-character threshold — Merging pages before counting non-whitespace characters keeps the classifier tied to overall document text density and provides a stable threshold between scanned and text-layer PDFs.
 - [Phase 03]: Phase 03-02: routingOverride keeps PDF-path tests deterministic — Allowing extract() to accept a routing override avoids handing fake PDF buffers to the real parser while still proving both routing outcomes through the extraction API.
+- [Phase 03]: Phase 03-03: validator findings are warnings on ExtractionResult, not extraction failures — Business-rule anomalies should surface alongside otherwise valid structured data, so validators annotate results after schema success instead of affecting the retry or failure path.
+- [Phase 03]: Phase 03-03: validators run only after extractCore succeeds — Keeping validators outside the schema-validation retry loop preserves the existing extraction error semantics while still allowing callers to attach domain-specific checks.
 
 ### Pending Todos
 
@@ -107,6 +109,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-29T08:28:58.128Z
-Stopped at: Completed 03-02-PLAN.md
-Resume file: .planning/phases/03-core-completeness/03-03-PLAN.md
+Last session: 2026-03-29T08:32:56.157Z
+Stopped at: Completed 03-03-PLAN.md
+Resume file: .planning/phases/03-core-completeness/03-04-PLAN.md

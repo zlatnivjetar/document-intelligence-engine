@@ -22,7 +22,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **EXTRACT-04**: Engine automatically retries extraction when output fails Zod validation (max 2 retries, error fed back to model)
 - [x] **EXTRACT-05**: Engine provides clear error states: invalid API key, unsupported file type, extraction failure, validation failure after retries
 - [x] **EXTRACT-06**: Provider abstraction layer - start with one LLM provider (Claude), clean interface for adding more
-- [ ] **EXTRACT-07**: Templates include business-rule validators (e.g., invoice line items must sum to total)
+- [x] **EXTRACT-07**: Templates include business-rule validators (e.g., invoice line items must sum to total)
 - [x] **EXTRACT-08**: Retry logic respects a cost budget - no retry on 401/429, max 2 retries per extraction
 
 ### Templates
@@ -30,7 +30,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **TMPL-01**: Built-in invoice template (vendor name, vendor address, invoice number, invoice date, due date, line items, subtotal, tax amount, tax rate, total)
 - [x] **TMPL-02**: Built-in receipt template (merchant name, merchant address, date, line items, subtotal, tax, total)
 - [x] **TMPL-03**: Built-in W-2 template (employer info, employee info, wages/tips, federal tax withheld, state info, tax year)
-- [ ] **TMPL-04**: Template system is extensible - users can define custom Zod schemas for any document type
+- [x] **TMPL-04**: Template system is extensible - users can define custom Zod schemas for any document type
 
 ### Web Application
 
@@ -114,12 +114,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EXTRACT-04 | Phase 2 | Complete |
 | EXTRACT-05 | Phase 2 | Complete |
 | EXTRACT-06 | Phase 1 | Complete |
-| EXTRACT-07 | Phase 3 | Pending |
+| EXTRACT-07 | Phase 3 | Complete |
 | EXTRACT-08 | Phase 2 | Complete |
 | TMPL-01 | Phase 2 | Complete |
 | TMPL-02 | Phase 3 | Complete |
 | TMPL-03 | Phase 3 | Complete |
-| TMPL-04 | Phase 3 | Pending |
+| TMPL-04 | Phase 3 | Complete |
 | WEB-01 | Phase 4 | Pending |
 | WEB-02 | Phase 4 | Pending |
 | WEB-03 | Phase 5 | Pending |
