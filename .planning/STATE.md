@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 03-03-PLAN.md
-last_updated: "2026-03-29T08:33:56.890Z"
+status: verification-gaps
+stopped_at: Phase 03 verification gaps found
+last_updated: "2026-03-29T08:36:46.068Z"
 last_activity: 2026-03-29
 progress:
   total_phases: 6
   completed_phases: 2
-  total_plans: 10
-  completed_plans: 9
-  percent: 60
+  total_plans: 11
+  completed_plans: 10
+  percent: 91
 ---
 
 # Project State
@@ -21,24 +21,24 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-29)
 
 **Core value:** A user can upload a document and get clean, validated structured data back - reliably, every time.
-**Current focus:** Phase 03 — core-completeness
+**Current focus:** Phase 03 verification gaps
 
 ## Current Position
 
-Phase: 03 (core-completeness) — EXECUTING
-Plan: 3 of 4
-Status: Ready to execute
+Phase: 03 (core-completeness) - VERIFICATION GAPS
+Plan: 4 of 4 complete
+Status: Verification gaps found - phase not complete
 Last activity: 2026-03-29
 
-Progress: [######....] 60%
+Progress: [█████████░] 91%
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 6
-- Average duration: 8 min
-- Total execution time: 47 min
+- Total plans completed: 10
+- Average duration: 5 min
+- Total execution time: 54 min
 
 **By Phase:**
 
@@ -46,10 +46,11 @@ Progress: [######....] 60%
 |-------|-------|-------|----------|
 | 01 | 2 | 34 min | 17 min |
 | 02 | 4 | 13 min | 3 min |
+| 03 | 4 | 7 min | 2 min |
 
 **Recent Trend:**
 
-- Last 5 plans: 20 min, 5 min, 2 min, 2 min, 4 min
+- Last 5 plans: 4 min, 2 min, 2 min, 2 min, 1 min
 - Trend: improving
 
 **Recent Plan Metrics:**
@@ -64,6 +65,8 @@ Progress: [######....] 60%
 | Phase 02 P04 | 4 min | 3 tasks | 3 files |
 | Phase 03 P01 | 2 min | 2 tasks | 5 files |
 | Phase 03 P02 | 2 min | 2 tasks | 8 files |
+| Phase 03 P03 | 2 min | 2 tasks | 6 files |
+| Phase 03 P04 | 1 min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -90,12 +93,12 @@ Recent decisions affecting current work:
 - [Phase 02]: Invoice schema uses explicit shape annotations - the exported Zod schema needs explicit internal shape types to compile under isolatedDeclarations without weakening the template contract.
 - [Phase 02]: Consumer verification audits tarball contents before install - the publish smoke test rejects tarballs that leak src, node_modules, or test files before attempting the external install.
 - [Phase 02]: Installed-package smoke test asserts EXTRACTION_FAILED path - using a fake model and the public error wrapper is more reliable than deep-mocking ai inside an installed tarball while still proving no missing-module failures.
-- [Phase 03]: Phase 03-01: built-in templates mirror the invoice schema/export pattern — Keeping receipt and W-2 on the same explicit-shape Zod pattern preserves isolatedDeclarations compatibility and a single public template contract in @docpipe/core.
-- [Phase 03]: Phase 03-01: nullable template fields represent missing document values explicitly — Receipt subtotal or tax and W-2 state fields can be absent on real documents, so nullable fields preserve a stable result shape while still expressing missing data.
-- [Phase 03]: Phase 03-02: PDF routing uses unpdf mergePages text extraction with a 50-character threshold — Merging pages before counting non-whitespace characters keeps the classifier tied to overall document text density and provides a stable threshold between scanned and text-layer PDFs.
-- [Phase 03]: Phase 03-02: routingOverride keeps PDF-path tests deterministic — Allowing extract() to accept a routing override avoids handing fake PDF buffers to the real parser while still proving both routing outcomes through the extraction API.
-- [Phase 03]: Phase 03-03: validator findings are warnings on ExtractionResult, not extraction failures — Business-rule anomalies should surface alongside otherwise valid structured data, so validators annotate results after schema success instead of affecting the retry or failure path.
-- [Phase 03]: Phase 03-03: validators run only after extractCore succeeds — Keeping validators outside the schema-validation retry loop preserves the existing extraction error semantics while still allowing callers to attach domain-specific checks.
+- [Phase 03]: Phase 03-01: built-in templates mirror the invoice schema/export pattern - Keeping receipt and W-2 on the same explicit-shape Zod pattern preserves isolatedDeclarations compatibility and a single public template contract in @docpipe/core.
+- [Phase 03]: Phase 03-01: nullable template fields represent missing document values explicitly - Receipt subtotal or tax and W-2 state fields can be absent on real documents, so nullable fields preserve a stable result shape while still expressing missing data.
+- [Phase 03]: Phase 03-02: PDF routing uses unpdf mergePages text extraction with a 50-character threshold - Merging pages before counting non-whitespace characters keeps the classifier tied to overall document text density and provides a stable threshold between scanned and text-layer PDFs.
+- [Phase 03]: Phase 03-02: routingOverride keeps PDF-path tests deterministic - Allowing extract() to accept a routing override avoids handing fake PDF buffers to the real parser while still proving both routing outcomes through the extraction API.
+- [Phase 03]: Phase 03-03: validator findings are warnings on ExtractionResult, not extraction failures - Business-rule anomalies should surface alongside otherwise valid structured data, so validators annotate results after schema success instead of affecting the retry or failure path.
+- [Phase 03]: Phase 03-03: validators run only after extractCore succeeds - Keeping validators outside the schema-validation retry loop preserves the existing extraction error semantics while still allowing callers to attach domain-specific checks.
 
 ### Pending Todos
 
@@ -103,12 +106,12 @@ None yet.
 
 ### Blockers/Concerns
 
-- Phase 3: unpdf behavior on image-only PDFs (empty string vs null vs throw) needs validation - calibrate character-count routing heuristic during Phase 3 planning
-- Phase 3: LLM confidence label calibration (categorical high/medium/low vs numeric) should be validated against known-answer fixture documents
-- Phase 4: Deploy to Vercel early in Phase 4 (not at end) - confirm actual route duration for pdfjs-dist on a 2-page PDF before building full polish
+- Phase 03 verification gap: roadmap still expects distinct text-layer vs image-only routing behavior, but the current implementation only annotates `pdfType`
+- Phase 03 verification gap: receipt and W-2 coverage still lacks known-answer fixture documents and confidence assertions
+- Phase 04: Deploy to Vercel early in Phase 4 (not at end) - confirm actual route duration for pdfjs-dist on a 2-page PDF before building full polish
 
 ## Session Continuity
 
-Last session: 2026-03-29T08:32:56.157Z
-Stopped at: Completed 03-03-PLAN.md
-Resume file: .planning/phases/03-core-completeness/03-04-PLAN.md
+Last session: 2026-03-29T08:36:46.064Z
+Stopped at: Phase 03 verification gaps found
+Resume file: .planning/phases/03-core-completeness/03-VERIFICATION.md

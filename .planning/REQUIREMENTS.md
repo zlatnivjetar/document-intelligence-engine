@@ -11,7 +11,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **INPUT-01**: User can upload PDF files for extraction
 - [x] **INPUT-02**: User can upload image files (PNG, JPG) for extraction
-- [x] **INPUT-03**: Engine detects PDF type (text-layer vs image-only) and routes to appropriate processing path
+- [ ] **INPUT-03**: Engine detects PDF type (text-layer vs image-only) and routes to appropriate processing path
 - [ ] **INPUT-04**: Web app provides drag-and-drop upload with visual feedback and file type validation
 
 ### Extraction Engine
@@ -54,7 +54,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **LIB-01**: Core engine publishable as npm package with clean, documented public API
 - [x] **LIB-02**: Monorepo structure (Turborepo + pnpm) with packages/core, packages/web, packages/cli
-- [ ] **LIB-03**: Web and CLI are thin wrappers around the shared core engine - no logic duplication
+- [x] **LIB-03**: Web and CLI are thin wrappers around the shared core engine - no logic duplication
 
 ## v2 Requirements
 
@@ -106,7 +106,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 |-------------|-------|--------|
 | INPUT-01 | Phase 2 | Complete |
 | INPUT-02 | Phase 2 | Complete |
-| INPUT-03 | Phase 3 | Complete |
+| INPUT-03 | Phase 3 | Pending |
 | INPUT-04 | Phase 4 | Pending |
 | EXTRACT-01 | Phase 2 | Complete |
 | EXTRACT-02 | Phase 2 | Complete |
@@ -134,7 +134,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CLI-04 | Phase 6 | Pending |
 | LIB-01 | Phase 2 | Complete |
 | LIB-02 | Phase 1 | Complete |
-| LIB-03 | Phase 3 | Pending |
+| LIB-03 | Phase 3 | Complete |
 
 **Coverage:**
 - v1 requirements: 31 total
@@ -143,4 +143,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-03-28*
-*Last updated: 2026-03-29 - Phase 02 complete; LIB-01, INPUT-01, INPUT-02, EXTRACT-01 through EXTRACT-05, EXTRACT-08, and TMPL-01 verified complete*
+*Last updated: 2026-03-29 - Phase 03 execution complete; TMPL-02, TMPL-03, TMPL-04, EXTRACT-07, and LIB-03 verified complete, with INPUT-03 still open pending routing-gap closure*
