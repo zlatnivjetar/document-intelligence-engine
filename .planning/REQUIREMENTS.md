@@ -11,7 +11,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **INPUT-01**: User can upload PDF files for extraction
 - [x] **INPUT-02**: User can upload image files (PNG, JPG) for extraction
-- [ ] **INPUT-03**: Engine detects PDF type (text-layer vs image-only) and routes to appropriate processing path
+- [x] **INPUT-03**: Engine detects PDF type (text-layer vs image-only) and routes to appropriate processing path
 - [ ] **INPUT-04**: Web app provides drag-and-drop upload with visual feedback and file type validation
 
 ### Extraction Engine
@@ -106,7 +106,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 |-------------|-------|--------|
 | INPUT-01 | Phase 2 | Complete |
 | INPUT-02 | Phase 2 | Complete |
-| INPUT-03 | Phase 3 | Pending |
+| INPUT-03 | Phase 3 | Complete |
 | INPUT-04 | Phase 4 | Pending |
 | EXTRACT-01 | Phase 2 | Complete |
 | EXTRACT-02 | Phase 2 | Complete |
@@ -143,4 +143,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-03-28*
-*Last updated: 2026-03-29 - Phase 03 execution complete; TMPL-02, TMPL-03, TMPL-04, EXTRACT-07, and LIB-03 verified complete, with INPUT-03 still open pending routing-gap closure*
+*Last updated: 2026-03-29 - Phase 03 complete; TMPL-02, TMPL-03, TMPL-04, EXTRACT-07, INPUT-03, and LIB-03 verified complete*

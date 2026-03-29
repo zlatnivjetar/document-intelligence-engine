@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Monorepo + Types + Provider** - Monorepo scaffold (Turborepo + pnpm), core TypeScript types/interfaces, provider abstraction layer with Anthropic implementation
 - [x] **Phase 2: Extraction Pipeline + Invoice Template** - Extraction pipeline (extract function, Zod validation, retry logic, error handling, confidence scoring), invoice template, npm publish pipeline
-- [ ] **Phase 3: Core Completeness** - Receipt and W-2 templates, PDF routing (text vs image), business-rule validators, custom schema support, fixture tests, thin consumer verification
+- [x] **Phase 3: Core Completeness** - Receipt and W-2 templates, PDF routing (text vs image), business-rule validators, custom schema support, fixture tests, thin consumer verification
 - [ ] **Phase 4: Web App - Core Flow** - Upload UI (drag-and-drop), BYOK key management, template selection, trigger extraction, basic results display
 - [ ] **Phase 5: Web App - Results & Export** - Confidence color-coded results table, JSON/CSV export, clipboard copy, custom schema input in web UI, error state display
 - [ ] **Phase 6: CLI** - Command-line interface wrapping core
@@ -64,15 +64,15 @@ Plans:
   3. Business-rule validators flag anomalies (zero total, future date, line items not summing to total) as warnings alongside the extraction result without failing the extraction
   4. A custom Zod schema passed to `extract()` works end-to-end - the engine uses it as the output schema and returns a validated, typed result
   5. Web and CLI packages import `@docpipe/core` via workspace reference with no logic duplication - both are thin consumers of the same pipeline
-**Plans**: 4/6 plans complete (gap-closure plans added)
+**Plans**: 6/6 plans complete
 
 Plans:
 - [x] 03-01-PLAN.md - Receipt template (TMPL-02) and W-2 template (TMPL-03) with unit tests, wired into barrel
 - [x] 03-02-PLAN.md - PDF type detection with unpdf (INPUT-03): detectPdfType(), pdfType annotation on ExtractionResult
 - [x] 03-03-PLAN.md - Business-rule validators (EXTRACT-07) + custom schema end-to-end test (TMPL-04)
 - [x] 03-04-PLAN.md - Thin consumer verification: web and CLI import from @docpipe/core (LIB-03), human checkpoint
-- [ ] 03-05-PLAN.md - Receipt and W-2 known-answer PDF fixtures with exact confidence-backed integration tests
-- [ ] 03-06-PLAN.md - Real text-layer vs image-only PDF routing paths with committed routing fixtures
+- [x] 03-05-PLAN.md - Receipt and W-2 known-answer PDF fixtures with exact confidence-backed integration tests
+- [x] 03-06-PLAN.md - Real text-layer vs image-only PDF routing paths with committed routing fixtures
 
 ### Phase 4: Web App - Core Flow
 **Goal**: Users can visit the web app, upload a document, enter their API key, select a template, and trigger extraction - producing a basic result display that confirms the pipeline works end-to-end in the browser
@@ -118,7 +118,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 |-------|----------------|--------|-----------|
 | 1. Monorepo + Types + Provider | 2/2 | Complete | 2026-03-28 |
 | 2. Extraction Pipeline + Invoice Template | 4/4 | Complete | 2026-03-29 |
-| 3. Core Completeness | 4/6 | In Progress | - |
+| 3. Core Completeness | 6/6 | Complete | 2026-03-29 |
 | 4. Web App - Core Flow | 0/? | Not started | - |
 | 5. Web App - Results & Export | 0/? | Not started | - |
 | 6. CLI | 0/? | Not started | - |
