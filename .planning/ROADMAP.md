@@ -118,7 +118,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 |-------|----------------|--------|-----------|
 | 1. Monorepo + Types + Provider | 2/2 | Complete | 2026-03-28 |
 | 2. Extraction Pipeline + Invoice Template | 4/4 | Complete | 2026-03-29 |
-| 3. Core Completeness | 4/4 | In Progress | - |
+| 3. Core Completeness | 4/6 | In Progress | - |
 | 4. Web App - Core Flow | 0/? | Not started | - |
 | 5. Web App - Results & Export | 0/? | Not started | - |
 | 6. CLI | 0/? | Not started | - |
