@@ -64,13 +64,15 @@ Plans:
   3. Business-rule validators flag anomalies (zero total, future date, line items not summing to total) as warnings alongside the extraction result without failing the extraction
   4. A custom Zod schema passed to `extract()` works end-to-end - the engine uses it as the output schema and returns a validated, typed result
   5. Web and CLI packages import `@docpipe/core` via workspace reference with no logic duplication - both are thin consumers of the same pipeline
-**Plans**: 4/4 plans complete (verification gaps remain)
+**Plans**: 4/6 plans complete (gap-closure plans added)
 
 Plans:
 - [x] 03-01-PLAN.md - Receipt template (TMPL-02) and W-2 template (TMPL-03) with unit tests, wired into barrel
 - [x] 03-02-PLAN.md - PDF type detection with unpdf (INPUT-03): detectPdfType(), pdfType annotation on ExtractionResult
 - [x] 03-03-PLAN.md - Business-rule validators (EXTRACT-07) + custom schema end-to-end test (TMPL-04)
 - [x] 03-04-PLAN.md - Thin consumer verification: web and CLI import from @docpipe/core (LIB-03), human checkpoint
+- [ ] 03-05-PLAN.md - Receipt and W-2 known-answer PDF fixtures with exact confidence-backed integration tests
+- [ ] 03-06-PLAN.md - Real text-layer vs image-only PDF routing paths with committed routing fixtures
 
 ### Phase 4: Web App - Core Flow
 **Goal**: Users can visit the web app, upload a document, enter their API key, select a template, and trigger extraction - producing a basic result display that confirms the pipeline works end-to-end in the browser
