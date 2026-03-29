@@ -13,11 +13,18 @@ export interface ExtractionInput {
  * T is the shape of the extracted data (determined by the Zod schema passed to extract()).
  * Per D-14: confidence is a parallel map keyed by field name, NOT nested per-field.
  */
+export interface ExtractionWarning {
+  code: string;
+  message: string;
+  field?: string;
+}
+
 export interface ExtractionResult<T> {
   data: T;
   confidence: Record<string, number>;
   overallConfidence: number;
   pdfType?: 'text-layer' | 'image-only';
+  warnings?: ExtractionWarning[];
 }
 
 /**
