@@ -2,62 +2,66 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 02-03-PLAN.md
-last_updated: "2026-03-29T06:46:47.599Z"
+status: ready
+stopped_at: Phase 02 complete
+last_updated: "2026-03-29T07:04:16.6991503Z"
 last_activity: 2026-03-29
 progress:
   total_phases: 6
-  completed_phases: 1
-  total_plans: 6
-  completed_plans: 5
-  percent: 83
+  completed_phases: 2
+  total_plans: 10
+  completed_plans: 6
+  percent: 60
 ---
 
 # Project State
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-03-28)
+See: .planning/PROJECT.md (updated 2026-03-29)
 
 **Core value:** A user can upload a document and get clean, validated structured data back - reliably, every time.
-**Current focus:** Phase 02 - extraction-pipeline-invoice-template
+**Current focus:** Phase 03 - core-completeness
 
 ## Current Position
 
-Phase: 02 (extraction-pipeline-invoice-template) - EXECUTING
-Plan: 4 of 4
-Status: Ready to execute
+Phase: 03 (core-completeness) - READY
+Plan: Not started
+Status: Phase 02 complete - ready to plan
 Last activity: 2026-03-29
 
-Progress: [████████░░] 83%
+Progress: [######....] 60%
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 5
-- Average duration: 9 min
-- Total execution time: 43 min
+- Total plans completed: 6
+- Average duration: 8 min
+- Total execution time: 47 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01 | 2 | 34 min | 17 min |
-| 02 | 3 | 9 min | 3 min |
+| 02 | 4 | 13 min | 3 min |
 
 **Recent Trend:**
 
-- Last 5 plans: 14 min, 20 min, 5 min, 2 min, 2 min
+- Last 5 plans: 20 min, 5 min, 2 min, 2 min, 4 min
 - Trend: improving
 
-*Updated after each plan completion*
+**Recent Plan Metrics:**
+
+| Plan | Duration | Tasks | Files |
+|------|----------|-------|-------|
 | Phase 01-monorepo-types-provider P01 | 14 min | 2 tasks | 16 files |
 | Phase 01-monorepo-types-provider P02 | 20 min | 3 tasks | 10 files |
 | Phase 02 P01 | 5 min | 2 tasks | 3 files |
-| Phase 02 P02 | 2 min | 1 tasks | 2 files |
+| Phase 02 P02 | 2 min | 1 task | 2 files |
 | Phase 02 P03 | 2 min | 2 tasks | 3 files |
+| Phase 02 P04 | 4 min | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -82,6 +86,8 @@ Recent decisions affecting current work:
 - [Phase 02]: Validation retries append schema errors to the prompt - each retry reuses extractCore() and adds the previous validation failure as corrective context for the model.
 - [Phase 02]: Invoice template uses nullable optional invoice fields - vendorAddress, dueDate, taxAmount, and taxRate are nullable so the built-in template matches invoices that omit them.
 - [Phase 02]: Invoice schema uses explicit shape annotations - the exported Zod schema needs explicit internal shape types to compile under isolatedDeclarations without weakening the template contract.
+- [Phase 02]: Consumer verification audits tarball contents before install - the publish smoke test rejects tarballs that leak src, node_modules, or test files before attempting the external install.
+- [Phase 02]: Installed-package smoke test asserts EXTRACTION_FAILED path - using a fake model and the public error wrapper is more reliable than deep-mocking ai inside an installed tarball while still proving no missing-module failures.
 
 ### Pending Todos
 
@@ -89,13 +95,12 @@ None yet.
 
 ### Blockers/Concerns
 
-- Phase 2: npm publish pipeline must be validated end-to-end (install in fresh project outside the monorepo) - monorepo hoisting masks missing deps
 - Phase 3: unpdf behavior on image-only PDFs (empty string vs null vs throw) needs validation - calibrate character-count routing heuristic during Phase 3 planning
 - Phase 3: LLM confidence label calibration (categorical high/medium/low vs numeric) should be validated against known-answer fixture documents
 - Phase 4: Deploy to Vercel early in Phase 4 (not at end) - confirm actual route duration for pdfjs-dist on a 2-page PDF before building full polish
 
 ## Session Continuity
 
-Last session: 2026-03-29T06:46:47.599Z
-Stopped at: Completed 02-03-PLAN.md
-Resume file: None
+Last session: 2026-03-29T07:04:16.6991503Z
+Stopped at: Phase 02 complete
+Resume file: .planning/phases/03-core-completeness/03-01-PLAN.md

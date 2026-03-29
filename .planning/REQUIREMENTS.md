@@ -1,7 +1,7 @@
 # Requirements: DocPipe
 
 **Defined:** 2026-03-28
-**Core Value:** A user can upload a document and get clean, validated structured data back — reliably, every time.
+**Core Value:** A user can upload a document and get clean, validated structured data back - reliably, every time.
 
 ## v1 Requirements
 
@@ -17,31 +17,31 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Extraction Engine
 
 - [x] **EXTRACT-01**: Engine extracts structured data from documents using vision-capable LLM
-- [x] **EXTRACT-02**: Extraction is schema-driven — user defines output structure using Zod schemas
+- [x] **EXTRACT-02**: Extraction is schema-driven - user defines output structure using Zod schemas
 - [x] **EXTRACT-03**: Each extracted field includes a confidence score
 - [x] **EXTRACT-04**: Engine automatically retries extraction when output fails Zod validation (max 2 retries, error fed back to model)
 - [x] **EXTRACT-05**: Engine provides clear error states: invalid API key, unsupported file type, extraction failure, validation failure after retries
-- [x] **EXTRACT-06**: Provider abstraction layer — start with one LLM provider (Claude), clean interface for adding more
+- [x] **EXTRACT-06**: Provider abstraction layer - start with one LLM provider (Claude), clean interface for adding more
 - [ ] **EXTRACT-07**: Templates include business-rule validators (e.g., invoice line items must sum to total)
-- [x] **EXTRACT-08**: Retry logic respects a cost budget — no retry on 401/429, max 2 retries per extraction
+- [x] **EXTRACT-08**: Retry logic respects a cost budget - no retry on 401/429, max 2 retries per extraction
 
 ### Templates
 
 - [x] **TMPL-01**: Built-in invoice template (vendor name, vendor address, invoice number, invoice date, due date, line items, subtotal, tax amount, tax rate, total)
 - [ ] **TMPL-02**: Built-in receipt template (merchant name, merchant address, date, line items, subtotal, tax, total)
 - [ ] **TMPL-03**: Built-in W-2 template (employer info, employee info, wages/tips, federal tax withheld, state info, tax year)
-- [ ] **TMPL-04**: Template system is extensible — users can define custom Zod schemas for any document type
+- [ ] **TMPL-04**: Template system is extensible - users can define custom Zod schemas for any document type
 
 ### Web Application
 
 - [ ] **WEB-01**: BYOK API key input stored in browser only (localStorage/sessionStorage), never sent to server
-- [ ] **WEB-02**: Live extraction preview — results appear in-page as extraction completes
+- [ ] **WEB-02**: Live extraction preview - results appear in-page as extraction completes
 - [ ] **WEB-03**: Results displayed in table with field-level confidence color-coding (green >= 0.85, amber 0.60-0.84, red < 0.60)
 - [ ] **WEB-04**: Export results as JSON (file download)
 - [ ] **WEB-05**: Export results as CSV (file download)
 - [ ] **WEB-06**: Copy JSON to clipboard with instant visual feedback
-- [ ] **WEB-07**: Custom Zod schema input — users can provide custom schemas in the web UI
-- [ ] **WEB-08**: Template selection UI — users pick from built-in templates or provide custom schema
+- [ ] **WEB-07**: Custom Zod schema input - users can provide custom schemas in the web UI
+- [ ] **WEB-08**: Template selection UI - users pick from built-in templates or provide custom schema
 
 ### CLI
 
@@ -52,9 +52,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Library / Infrastructure
 
-- [ ] **LIB-01**: Core engine publishable as npm package with clean, documented public API
+- [x] **LIB-01**: Core engine publishable as npm package with clean, documented public API
 - [x] **LIB-02**: Monorepo structure (Turborepo + pnpm) with packages/core, packages/web, packages/cli
-- [ ] **LIB-03**: Web and CLI are thin wrappers around the shared core engine — no logic duplication
+- [ ] **LIB-03**: Web and CLI are thin wrappers around the shared core engine - no logic duplication
 
 ## v2 Requirements
 
@@ -62,8 +62,8 @@ Deferred to future release. Tracked but not in current roadmap.
 
 ### Batch Processing
 
-- **BATCH-01**: Web app batch mode — upload multiple documents, process against same template
-- **BATCH-02**: CLI batch mode — process directory of documents
+- **BATCH-01**: Web app batch mode - upload multiple documents, process against same template
+- **BATCH-02**: CLI batch mode - process directory of documents
 - **BATCH-03**: Consolidated export from batch results
 
 ### Additional Providers
@@ -132,15 +132,15 @@ Which phases cover which requirements. Updated during roadmap creation.
 | CLI-02 | Phase 6 | Pending |
 | CLI-03 | Phase 6 | Pending |
 | CLI-04 | Phase 6 | Pending |
-| LIB-01 | Phase 2 | Pending |
+| LIB-01 | Phase 2 | Complete |
 | LIB-02 | Phase 1 | Complete |
 | LIB-03 | Phase 3 | Pending |
 
 **Coverage:**
 - v1 requirements: 31 total
 - Mapped to phases: 31
-- Unmapped: 0 ✓
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-28*
-*Last updated: 2026-03-28 after roadmap revision — expanded to 6 phases, all 31 requirements remapped*
+*Last updated: 2026-03-29 - Phase 02 complete; LIB-01, INPUT-01, INPUT-02, EXTRACT-01 through EXTRACT-05, EXTRACT-08, and TMPL-01 verified complete*
