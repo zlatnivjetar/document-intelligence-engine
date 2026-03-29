@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Monorepo + Types + Provider** - Monorepo scaffold (Turborepo + pnpm), core TypeScript types/interfaces, provider abstraction layer with Anthropic implementation
 - [x] **Phase 2: Extraction Pipeline + Invoice Template** - Extraction pipeline (extract function, Zod validation, retry logic, error handling, confidence scoring), invoice template, npm publish pipeline
 - [x] **Phase 3: Core Completeness** - Receipt and W-2 templates, PDF routing (text vs image), business-rule validators, custom schema support, fixture tests, thin consumer verification
-- [ ] **Phase 4: Web App - Core Flow** - Upload UI (drag-and-drop), BYOK key management, template selection, trigger extraction, basic results display
+- [x] **Phase 4: Web App - Core Flow** - Upload UI (drag-and-drop), BYOK key management, template selection, trigger extraction, basic results display
 - [ ] **Phase 5: Web App - Results & Export** - Confidence color-coded results table, JSON/CSV export, clipboard copy, custom schema input in web UI, error state display
 - [ ] **Phase 6: CLI** - Command-line interface wrapping core
 
@@ -80,11 +80,17 @@ Plans:
 **Requirements**: INPUT-04, WEB-01, WEB-02, WEB-08
 **Success Criteria** (what must be TRUE):
   1. User can drag and drop (or click-to-select) a PDF, PNG, or JPG file; unsupported file types are rejected with a visible error message before any extraction attempt
-  2. User enters their Anthropic API key in the web app; the key is stored in sessionStorage only and never appears in network requests to DocPipe servers
+  2. User enters a supported provider API key in the web app; the key is stored in sessionStorage only and never appears in network requests to DocPipe servers
   3. User selects a built-in template from the template selector, triggers extraction, and sees a result appear in-page - confirming extraction runs end-to-end through the browser
   4. The web app deploys to Vercel and the extraction flow works in production - Vercel timeout behavior is confirmed with the PDF parse API route before full polish is added
-**Plans**: 1/4 plans complete
+**Plans**: 4/4 plans complete
 **UI hint**: yes
+
+Plans:
+- [x] 04-01-PLAN.md - Browser-safe core/browser entrypoint and thin web shim
+- [x] 04-02-PLAN.md - Tailwind/shadcn shell and Phase 4 visual foundation
+- [x] 04-03-PLAN.md - Interactive browser extraction workspace with session-only BYOK
+- [x] 04-04-PLAN.md - Vercel PDF inspect diagnostics route and production verification
 
 ### Phase 5: Web App - Results & Export
 **Goal**: Users get a polished results experience - fields are color-coded by confidence, results can be exported or copied, custom schemas can be entered in the UI, and all error states are clearly communicated
@@ -95,8 +101,13 @@ Plans:
   2. User can export results as a JSON file download, a CSV file download, or copy JSON to clipboard with instant visual confirmation
   3. User can paste a custom Zod schema in the web UI and trigger extraction using that schema instead of a built-in template
   4. Error states are clearly displayed in the UI for all failure modes: invalid API key, unsupported file format, extraction failure, and validation failure after retries - each with a distinct, actionable message
-**Plans**: TBD
+**Plans**: 3 planned
 **UI hint**: yes
+
+Plans:
+- [ ] 05-01-PLAN.md
+- [ ] 05-02-PLAN.md
+- [ ] 05-03-PLAN.md
 
 ### Phase 6: CLI
 **Goal**: Developers can use `docpipe extract` from the terminal to extract structured data from a local file and pipe the result into other tools
@@ -119,6 +130,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 1. Monorepo + Types + Provider | 2/2 | Complete | 2026-03-28 |
 | 2. Extraction Pipeline + Invoice Template | 4/4 | Complete | 2026-03-29 |
 | 3. Core Completeness | 6/6 | Complete | 2026-03-29 |
-| 4. Web App - Core Flow | 1/4 | In Progress | - |
-| 5. Web App - Results & Export | 0/? | Not started | - |
+| 4. Web App - Core Flow | 4/4 | Complete | 2026-03-29 |
+| 5. Web App - Results & Export | 0/3 | Not started | - |
 | 6. CLI | 0/? | Not started | - |

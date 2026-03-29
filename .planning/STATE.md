@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 04-01-PLAN.md
-last_updated: "2026-03-29T10:40:50.189Z"
-last_activity: 2026-03-29
+status: ready
+stopped_at: Phase 04 complete
+last_updated: "2026-03-29T15:49:10.0417924+02:00"
+last_activity: 2026-03-29 -- Phase 04 complete
 progress:
   total_phases: 6
-  completed_phases: 3
-  total_plans: 16
-  completed_plans: 13
-  percent: 81
+  completed_phases: 4
+  total_plans: 19
+  completed_plans: 16
+  percent: 84
 ---
 
 # Project State
@@ -25,10 +25,10 @@ See: .planning/PROJECT.md (updated 2026-03-29)
 
 ## Current Position
 
-Phase: 04 (web-app-core-flow) — EXECUTING
-Plan: 2 of 4
-Status: Ready to execute
-Last activity: 2026-03-29
+Phase: 05 (web-app-results-export) - READY
+Plan: Not started
+Status: Phase 04 complete - ready to plan or execute Phase 05
+Last activity: 2026-03-29 -- Phase 04 complete
 
 Progress: [████████░░] 81%
 
@@ -106,6 +106,8 @@ Recent decisions affecting current work:
 - [Phase 03]: analyzePdfRouting returns extracted text only for genuine text-layer PDFs - extract() branches on that analysis while routingOverride remains a metadata seam when real extracted text is unavailable.
 - [Phase 04]: Web code imports a dedicated @docpipe/core/browser surface so client code avoids non-browser-safe helpers from the root package.
 - [Phase 04]: Shared extract() normalizes browser-native binaries to base64 while decoding PDF base64 back to bytes for routing analysis.
+- [Phase 04]: The browser flow supports Anthropic and OpenAI provider factories while keeping provider keys in sessionStorage only.
+- [Phase 04]: `/api/pdf-inspect` is diagnostic-only; production verification confirmed extraction traffic goes directly from the browser to the selected provider.
 
 ### Pending Todos
 
@@ -113,10 +115,10 @@ None yet.
 
 ### Blockers/Concerns
 
-- Phase 04: Deploy to Vercel early in Phase 4 (not at end) - confirm actual route duration for pdfjs-dist on a 2-page PDF before building full polish
+None currently.
 
 ## Session Continuity
 
 Last session: 2026-03-29T10:39:46.473Z
-Stopped at: Completed 04-01-PLAN.md
-Resume file: None
+Stopped at: Phase 04 complete
+Resume file: .planning/ROADMAP.md

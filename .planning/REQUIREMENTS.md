@@ -12,7 +12,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **INPUT-01**: User can upload PDF files for extraction
 - [x] **INPUT-02**: User can upload image files (PNG, JPG) for extraction
 - [x] **INPUT-03**: Engine detects PDF type (text-layer vs image-only) and routes to appropriate processing path
-- [ ] **INPUT-04**: Web app provides drag-and-drop upload with visual feedback and file type validation
+- [x] **INPUT-04**: Web app provides drag-and-drop upload with visual feedback and file type validation
 
 ### Extraction Engine
 
@@ -41,7 +41,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **WEB-05**: Export results as CSV (file download)
 - [ ] **WEB-06**: Copy JSON to clipboard with instant visual feedback
 - [ ] **WEB-07**: Custom Zod schema input - users can provide custom schemas in the web UI
-- [ ] **WEB-08**: Template selection UI - users pick from built-in templates or provide custom schema
+- [x] **WEB-08**: Template selection UI - users pick from built-in templates or provide custom schema
 
 ### CLI
 
@@ -107,7 +107,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | INPUT-01 | Phase 2 | Complete |
 | INPUT-02 | Phase 2 | Complete |
 | INPUT-03 | Phase 3 | Complete |
-| INPUT-04 | Phase 4 | Pending |
+| INPUT-04 | Phase 4 | Complete |
 | EXTRACT-01 | Phase 2 | Complete |
 | EXTRACT-02 | Phase 2 | Complete |
 | EXTRACT-03 | Phase 2 | Complete |
@@ -127,7 +127,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | WEB-05 | Phase 5 | Pending |
 | WEB-06 | Phase 5 | Pending |
 | WEB-07 | Phase 5 | Pending |
-| WEB-08 | Phase 4 | Pending |
+| WEB-08 | Phase 4 | Complete |
 | CLI-01 | Phase 6 | Pending |
 | CLI-02 | Phase 6 | Pending |
 | CLI-03 | Phase 6 | Pending |
@@ -143,4 +143,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-03-28*
-*Last updated: 2026-03-29 - Phase 03 complete; TMPL-02, TMPL-03, TMPL-04, EXTRACT-07, INPUT-03, and LIB-03 verified complete*
+*Last updated: 2026-03-29 - Phase 04 complete; INPUT-04, WEB-01, WEB-02, and WEB-08 verified complete*

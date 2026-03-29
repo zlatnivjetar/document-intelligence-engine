@@ -22,13 +22,14 @@ A non-technical user can upload a document and get clean, validated structured d
 - [x] PDF routing distinguishes text-layer and image-only documents before the model call - Validated in Phase 03: core-completeness
 - [x] Business-rule validators surface warnings without failing extraction - Validated in Phase 03: core-completeness
 - [x] Web and CLI stay thin consumers of the shared core package - Validated in Phase 03: core-completeness
+- [x] BYOK - users provide their own LLM API key in the browser only - Validated in Phase 04: web-app-core-flow
+- [x] Web app: drag-and-drop upload, template selection, live extraction preview, and production verification on Vercel - Validated in Phase 04: web-app-core-flow
+- [x] Web app: API key input stored in browser only with no DocPipe-hosted extraction endpoint - Validated in Phase 04: web-app-core-flow
 
 ### Active
 
-- [ ] BYOK - users provide their own LLM API key
-- [ ] Web app: drag-and-drop upload, template selection, live extraction preview, results table with confidence indicators
 - [ ] Web app: export as JSON, CSV, or copy to clipboard
-- [ ] Web app: API key input stored in browser only
+- [ ] Web app: results table with confidence indicators and richer result presentation
 - [ ] CLI: single-file processing with template selection
 - [ ] CLI: custom schema support
 - [ ] CLI: multiple output formats (JSON, CSV)
@@ -41,7 +42,6 @@ A non-technical user can upload a document and get clean, validated structured d
 - Server-side document storage - privacy-first design, no backend persistence of user documents or API keys
 - Real-time collaboration - single-user tool
 - Mobile app - web-first
-- Multiple LLM providers in v1 - start with one, clean abstraction makes adding providers easy
 
 ## Context
 
@@ -65,11 +65,17 @@ A non-technical user can upload a document and get clean, validated structured d
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
 | Monorepo with Turborepo | Shared core engine across web + CLI, single repo for portfolio visibility | Done - pnpm 10 + Turborepo 2.8 with topological build order |
-| Client-side preferred, API routes allowed | Privacy-first but pragmatic - PDF parsing may need server help | Pending |
-| One LLM provider first | Prove the abstraction before adding complexity. Clean interface matters more than provider count | In progress - Anthropic provider is implemented and Phase 02 proved the shared extract() API against a LanguageModelV3-compatible model surface |
+| Client-side preferred, API routes allowed | Privacy-first but pragmatic - PDF parsing may need server help | Done - extraction stays browser-side, and Phase 04 added only a bounded `/api/pdf-inspect` diagnostic route on Vercel |
+| One LLM provider first | Prove the abstraction before adding complexity. Clean interface matters more than provider count | Done - the browser flow now supports Anthropic and OpenAI through the same shared provider abstraction |
 | 2-3 templates, not 6 | Depth over breadth. Extensible system design is more impressive than template quantity | Done - invoice, receipt, W-2, and custom-schema support are all verified in the shared core library |
 | Defer batch mode | Single-doc flow must be excellent first. Batch adds complexity without proving core value | Pending |
-| Core + web app priority over CLI | These are the most visible for portfolio. CLI is functional but lower polish | In progress - the shared core library is now feature-complete through Phase 03; web remains ahead of CLI in the roadmap |
+| Core + web app priority over CLI | These are the most visible for portfolio. CLI is functional but lower polish | In progress - the shared core library and Phase 04 web flow are complete; Phase 05 polish and the CLI remain |
+
+## Current State
+
+- Phase 04 is complete: the web app supports drag-and-drop upload, provider-aware BYOK entry, template selection, in-page extraction preview, and a production-verified Vercel deployment.
+- Extraction remains browser-first: the provider key stays in sessionStorage and the live network path goes directly to the selected LLM provider.
+- The only DocPipe-hosted runtime route added for the web app so far is `/api/pdf-inspect`, which measures PDF classification behavior without becoming an extraction proxy.
 
 ## Evolution
 
@@ -89,4 +95,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-29 - Phase 03 complete (fixture-backed templates, real PDF routing, validators, and thin consumer verification)*
+*Last updated: 2026-03-29 - Phase 04 complete (browser upload flow, provider-aware BYOK, Vercel verification, and PDF inspect diagnostics)*
