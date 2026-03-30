@@ -25,14 +25,15 @@ A non-technical user can upload a document and get clean, validated structured d
 - [x] BYOK - users provide their own LLM API key in the browser only - Validated in Phase 04: web-app-core-flow
 - [x] Web app: drag-and-drop upload, template selection, live extraction preview, and production verification on Vercel - Validated in Phase 04: web-app-core-flow
 - [x] Web app: API key input stored in browser only with no DocPipe-hosted extraction endpoint - Validated in Phase 04: web-app-core-flow
+- [x] Web app: export as JSON, CSV, or copy to clipboard - Validated in Phase 05: web-app-results-export
+- [x] Web app: results table with confidence indicators and richer result presentation - Validated in Phase 05: web-app-results-export
+- [x] CLI: single-file processing with template selection - Validated in Phase 06: cli
+- [x] CLI: custom schema support - Validated in Phase 06: cli
+- [x] CLI: multiple output formats (JSON, CSV) - Validated in Phase 06: cli
 
 ### Active
 
-- [ ] Web app: export as JSON, CSV, or copy to clipboard
-- [ ] Web app: results table with confidence indicators and richer result presentation
-- [ ] CLI: single-file processing with template selection
-- [ ] CLI: custom schema support
-- [ ] CLI: multiple output formats (JSON, CSV)
+- [ ] None - v1 scope is fully validated across the core library, web app, and CLI
 
 ### Out of Scope
 
@@ -69,13 +70,14 @@ A non-technical user can upload a document and get clean, validated structured d
 | One LLM provider first | Prove the abstraction before adding complexity. Clean interface matters more than provider count | Done - the browser flow now supports Anthropic and OpenAI through the same shared provider abstraction |
 | 2-3 templates, not 6 | Depth over breadth. Extensible system design is more impressive than template quantity | Done - invoice, receipt, W-2, and custom-schema support are all verified in the shared core library |
 | Defer batch mode | Single-doc flow must be excellent first. Batch adds complexity without proving core value | Pending |
-| Core + web app priority over CLI | These are the most visible for portfolio. CLI is functional but lower polish | In progress - the shared core library and Phase 04 web flow are complete; Phase 05 polish and the CLI remain |
+| Core + web app priority over CLI | These are the most visible for portfolio. CLI is functional but lower polish | Done - the shared core library, polished web app, and packaged CLI are all verified, with the CLI covering built-in templates, custom schemas, and external consumer install checks |
 
 ## Current State
 
-- Phase 04 is complete: the web app supports drag-and-drop upload, provider-aware BYOK entry, template selection, in-page extraction preview, and a production-verified Vercel deployment.
-- Extraction remains browser-first: the provider key stays in sessionStorage and the live network path goes directly to the selected LLM provider.
-- The only DocPipe-hosted runtime route added for the web app so far is `/api/pdf-inspect`, which measures PDF classification behavior without becoming an extraction proxy.
+- All six roadmap phases are complete and verified. The shared core library now supports built-in templates, PDF routing, validators, and custom-schema extraction from both the web app and the CLI.
+- The web app supports drag-and-drop upload, provider-aware BYOK entry, custom schemas, confidence-banded results, JSON/CSV export, clipboard copy, and a production-verified Vercel deployment.
+- The CLI now ships a real `docpipe extract` binary with built-in template mode, local custom-schema loading, pipe-safe JSON/CSV output, and external tarball-install verification.
+- Extraction remains browser-first for the web app: the provider key stays in sessionStorage and the live network path goes directly to the selected LLM provider. The only DocPipe-hosted runtime route is `/api/pdf-inspect`, which remains diagnostic-only.
 
 ## Evolution
 
@@ -95,4 +97,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-03-29 - Phase 04 complete (browser upload flow, provider-aware BYOK, Vercel verification, and PDF inspect diagnostics)*
+*Last updated: 2026-03-30 - Phase 06 complete (CLI custom schemas, packaged binary verification, and full v1 scope validated)*

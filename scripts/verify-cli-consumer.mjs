@@ -11,6 +11,8 @@ const repoRoot = resolve(__dirname, '..');
 const coreDir = join(repoRoot, 'packages', 'core');
 const cliDir = join(repoRoot, 'packages', 'cli');
 
+// Packaging verification flow: npm pack + temp project install + npx docpipe.
+
 function toShellCommand(command, args) {
   return [command, ...args.map((arg) => `"${arg.replaceAll('"', '\\"')}"`)].join(' ');
 }

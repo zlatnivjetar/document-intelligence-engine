@@ -46,7 +46,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### CLI
 
 - [x] **CLI-01**: Single-file extraction: `docpipe extract <file> --template <name>`
-- [ ] **CLI-02**: Custom schema support: `docpipe extract <file> --schema <path>`
+- [x] **CLI-02**: Custom schema support: `docpipe extract <file> --schema <path>`
 - [x] **CLI-03**: Output formats: JSON (default), CSV
 - [x] **CLI-04**: Stdout output for piping into other tools
 
@@ -129,7 +129,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | WEB-07 | Phase 5 | Complete |
 | WEB-08 | Phase 4 | Complete |
 | CLI-01 | Phase 6 | Complete |
-| CLI-02 | Phase 6 | Pending |
+| CLI-02 | Phase 6 | Complete |
 | CLI-03 | Phase 6 | Complete |
 | CLI-04 | Phase 6 | Complete |
 | LIB-01 | Phase 2 | Complete |
