@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: in_progress
-stopped_at: Ready for Phase 06 planning
-last_updated: "2026-03-30T07:56:26.8213653+02:00"
-last_activity: 2026-03-30 -- Phase 05 verification passed
+status: executing
+stopped_at: Completed 06-01-PLAN.md
+last_updated: "2026-03-30T06:50:14.810Z"
+last_activity: 2026-03-30 -- Phase 06 execution started
 progress:
   total_phases: 6
   completed_phases: 5
-  total_plans: 19
-  completed_plans: 19
+  total_plans: 21
+  completed_plans: 20
   percent: 83
 ---
 
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-29)
 
 **Core value:** A user can upload a document and get clean, validated structured data back - reliably, every time.
-**Current focus:** Phase 06 - CLI
+**Current focus:** Phase 06 — cli
 
 ## Current Position
 
-Phase: 06 (cli) - NOT STARTED
-Plan: Not started
-Status: Phases 01-05 are complete and verified; ready to begin Phase 06
-Last activity: 2026-03-30 -- Phase 05 verification passed
+Phase: 06 (cli) — EXECUTING
+Plan: 1 of 2
+Status: Executing Phase 06
+Last activity: 2026-03-30 -- Phase 06 execution started
 
 Progress: [########--] 83%
 
@@ -129,6 +129,6 @@ None right now.
 
 ## Session Continuity
 
-Last session: 2026-03-30T07:56:26.8213653+02:00
-Stopped at: Ready for Phase 06 planning
-Resume file: .planning/ROADMAP.md
+Last session: 2026-03-30T06:50:14.805Z
+Stopped at: Completed 06-01-PLAN.md
+Resume file: .planning/phases/06-cli/06-02-PLAN.md

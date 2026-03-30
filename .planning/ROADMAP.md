@@ -122,7 +122,7 @@ Plans:
 **Plans**: 2 plans
 
 Plans:
-- [ ] 06-01-PLAN.md - Commander extract command, local file/MIME validation, JSON/CSV stdout, and executable build alignment
+- [x] 06-01-PLAN.md - Commander extract command, local file/MIME validation, JSON/CSV stdout, and executable build alignment
 - [ ] 06-02-PLAN.md - Local custom schema module loading plus installed CLI consumer verification
 
 ## Progress
