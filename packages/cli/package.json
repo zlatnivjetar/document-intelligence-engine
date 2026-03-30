@@ -16,7 +16,9 @@
     "dev": "tsdown --config tsdown.config.ts --watch",
     "test": "vitest run",
     "type-check": "tsc --noEmit",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "prepack": "node ../../scripts/prepare-cli-package.mjs prepack",
+    "postpack": "node ../../scripts/prepare-cli-package.mjs postpack"
   },
   "dependencies": {
     "@docpipe/core": "workspace:0.1.0",

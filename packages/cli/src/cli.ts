@@ -1,6 +1,7 @@
 import { Command, CommanderError, Option } from 'commander';
 import { createAnthropicProvider, extract } from '@docpipe/core';
 import type { ExtractionError } from '@docpipe/core';
+import { loadCustomSchema } from './custom-schema.js';
 import { loadDocumentInput } from './document-input.js';
 import { formatExtractionOutput } from './output.js';
 import type { OutputFormat } from './output.js';
@@ -17,9 +18,16 @@ export interface CliIo {
 }
 
 interface ExtractCommandOptions {
-  template: BuiltInTemplateId;
+  template?: BuiltInTemplateId;
+  schema?: string;
   format: OutputFormat;
   key?: string;
+}
+
+interface ExtractionSchemaConfig {
+  schema: Parameters<typeof extract<Record<string, unknown>>>[0]['schema'];
+  schemaName: string;
+  schemaDescription: string;
 }
 
 function writeLine(
@@ -46,6 +54,21 @@ async function executeExtractCommand(
   io: Required<CliIo>,
 ): Promise<number> {
   try {
+    const hasTemplate = typeof options.template === 'string';
+    const hasSchema = typeof options.schema === 'string';
+
+    if (Number(hasTemplate) + Number(hasSchema) !== 1) {
+      writeLine(
+        io.stderr,
+        'Choose exactly one schema source: --template <invoice|receipt|w2> or --schema <path>.',
+      );
+      return 1;
+    }
+
+    const input = await loadDocumentInput(filePath);
+    const schemaConfig: ExtractionSchemaConfig = hasSchema
+      ? await loadCustomSchema(options.schema, io.cwd)
+      : BUILT_IN_TEMPLATES[options.template as BuiltInTemplateId];
     const apiKey = options.key ?? io.env.ANTHROPIC_API_KEY;
 
     if (!apiKey) {
@@ -56,13 +79,11 @@ async function executeExtractCommand(
       return 1;
     }
 
-    const template = BUILT_IN_TEMPLATES[options.template];
-    const input = await loadDocumentInput(filePath);
     const result = await extract({
       input,
-      schema: template.schema,
-      schemaName: template.schemaName,
-      schemaDescription: template.schemaDescription,
+      schema: schemaConfig.schema,
+      schemaName: schemaConfig.schemaName,
+      schemaDescription: schemaConfig.schemaDescription,
       model: createAnthropicProvider({ apiKey }),
     });
 
@@ -133,9 +154,9 @@ export async function runCli(
         '--template <name>',
         'Built-in template to use (invoice|receipt|w2)',
       )
-        .choices(['invoice', 'receipt', 'w2'])
-        .makeOptionMandatory(),
+        .choices(['invoice', 'receipt', 'w2']),
     )
+    .option('--schema <path>', 'Path to a schema module file')
     .addOption(
       new Option('--format <format>', 'Output format (json or csv)')
         .choices(['json', 'csv'])
@@ -147,6 +168,7 @@ export async function runCli(
       [
         '',
         'Supported templates: invoice, receipt, w2',
+        'Custom schema modules may export default z.object({...}) or export const schema = z.object({...}).',
         'Environment:',
         '  ANTHROPIC_API_KEY  Anthropic API key used when --key is omitted.',
       ].join('\n'),
