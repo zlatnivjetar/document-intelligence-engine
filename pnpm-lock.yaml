@@ -79,11 +79,17 @@ importers:
   packages/cli:
     dependencies:
       '@docpipe/core':
-        specifier: workspace:*
+        specifier: workspace:0.1.0
         version: link:../core
       commander:
         specifier: ^13.0.0
         version: 13.1.0
+      jiti:
+        specifier: ^2.6.1
+        version: 2.6.1
+      zod:
+        specifier: ^4.3.6
+        version: 4.3.6
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
