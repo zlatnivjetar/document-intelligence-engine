@@ -12,8 +12,8 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsdown src/index.ts --format esm --dts",
-    "dev": "tsdown src/index.ts --format esm --watch",
+    "build": "tsdown --config tsdown.config.ts",
+    "dev": "tsdown --config tsdown.config.ts --watch",
     "test": "vitest run",
     "type-check": "tsc --noEmit",
     "clean": "rm -rf dist"
