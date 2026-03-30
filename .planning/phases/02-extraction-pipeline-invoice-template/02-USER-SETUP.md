@@ -2,9 +2,9 @@
 
 **Generated:** 2026-03-29
 **Phase:** 02-extraction-pipeline-invoice-template
-**Status:** Incomplete
+**Status:** Optional follow-up (Phase 02 itself is complete)
 
-Complete these items when you are ready to publish `@docpipe/core` to npm. The package audit and consumer verification are already automated; these remaining items require access to your npm account.
+Complete these items when you are ready to publish `@docpipe/core` to npm. Phase 02 is already complete and verified; these remaining items are user-owned npm account steps, not unfinished phase work.
 
 ## Environment Variables
 
@@ -48,4 +48,4 @@ Expected results:
 
 ---
 
-**Once all items complete:** Mark status as "Complete" at top of file.
+**Once all items complete:** Mark status as "Setup complete" at top of file.

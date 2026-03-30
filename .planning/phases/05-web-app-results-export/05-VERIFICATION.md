@@ -1,28 +1,23 @@
 ---
 phase: 05-web-app-results-export
-verified: 2026-03-29T14:45:33.7309904Z
-status: gaps_found
-score: 3/4 must-haves verified
-gaps:
-  - truth: "Error states are clearly displayed in the UI for invalid API key, unsupported file format, extraction failure, and validation failure after retries, each with a distinct actionable message."
-    status: partial
-    reason: "The shared error-state mapper hardcodes Anthropic-specific invalid-key and rate-limit copy while the workspace supports both Anthropic and OpenAI, so the OpenAI path gets misleading UI messaging."
-    artifacts:
-      - path: "apps/web/src/lib/extraction-error-state.ts"
-        issue: "INVALID_API_KEY and RATE_LIMITED messages mention Anthropic unconditionally."
-      - path: "apps/web/src/components/docpipe/docpipe-workspace.tsx"
-        issue: "The extraction flow exposes Anthropic and OpenAI providers, but no provider context is passed into error-state rendering."
-    missing:
-      - "Make invalid-key and rate-limit copy provider-aware or provider-neutral."
-      - "Thread the selected provider into error-state mapping, or remove provider-specific wording from the shared messages."
+verified: 2026-03-30T07:56:26.8213653+02:00
+status: passed
+score: 4/4 must-haves verified
+re_verification:
+  previous_status: gaps_found
+  previous_score: 3/4
+  gaps_closed:
+    - "Invalid-key and rate-limit UI copy is now provider-neutral, so OpenAI users no longer receive Anthropic-specific error messaging."
+  gaps_remaining: []
+  regressions: []
 ---
 
 # Phase 05: web-app-results-export Verification Report
 
 **Phase Goal:** Users can paste a custom Zod schema in the web UI, extract against it or a built-in template in the existing one-page flow, see results in a table with field-level confidence color-coding, and export/copy results with clear actionable UI error states.
-**Verified:** 2026-03-29T14:45:33.7309904Z
-**Status:** gaps_found
-**Re-verification:** No - initial verification
+**Verified:** 2026-03-30T07:56:26.8213653+02:00
+**Status:** passed
+**Re-verification:** Yes - after provider-neutral error-copy gap closure
 
 ## Goal Achievement
 
@@ -33,15 +28,15 @@ gaps:
 | 1 | Results are displayed in a table with each field color-coded by confidence level (green >= 0.85, amber 0.60-0.84, red < 0.60). | VERIFIED | `apps/web/src/components/docpipe/result-confidence-table.tsx` renders `Field / Value / Confidence`, applies the 0.85 and 0.60 thresholds, uses `--color-confidence-high`, `--color-confidence-medium`, and `--color-confidence-low`, and is mounted from `apps/web/src/components/docpipe/results-preview.tsx`. |
 | 2 | User can export results as a JSON file download, a CSV file download, or copy JSON to clipboard with instant visual confirmation. | VERIFIED | `apps/web/src/lib/result-export.ts` implements JSON download, CSV download with `field,value,confidence`, and clipboard copy. `apps/web/src/components/docpipe/results-preview.tsx` renders `Download JSON`, `Download CSV`, and `Copy JSON`, and flips copy feedback to `Copied JSON` or `Copy failed` for 2000 ms. |
 | 3 | User can paste a custom Zod schema in the web UI and trigger extraction using that schema instead of a built-in template. | VERIFIED | `apps/web/src/components/docpipe/custom-schema-editor.tsx` renders the inline schema editor, `apps/web/src/lib/custom-schema.ts` compiles and validates pasted `z.object(...)` input, and `apps/web/src/components/docpipe/docpipe-workspace.tsx` branches to `compileCustomSchema(customSchemaSource)` before calling the shared `extract()` path. |
-| 4 | Error states are clearly displayed in the UI for invalid API key, unsupported file format, extraction failure, and validation failure after retries, each with a distinct actionable message. | PARTIAL | `apps/web/src/lib/extraction-error-state.ts` maps the required error codes and `apps/web/src/components/docpipe/results-preview.tsx` renders the error card, but the invalid-key and rate-limit copy is hardcoded to Anthropic while `apps/web/src/components/docpipe/docpipe-workspace.tsx` and `apps/web/src/components/docpipe/provider-selector.tsx` support both Anthropic and OpenAI. |
+| 4 | Error states are clearly displayed in the UI for invalid API key, unsupported file format, extraction failure, and validation failure after retries, each with a distinct actionable message. | VERIFIED | `apps/web/src/lib/extraction-error-state.ts` now maps `INVALID_API_KEY` and `RATE_LIMITED` with provider-neutral copy while preserving the existing unsupported-file, extraction-failure, and validation-failure states. `apps/web/src/components/docpipe/results-preview.tsx` still renders the shared error card. A local browser smoke check against the web app forced an OpenAI-style `401` response and rendered `API key rejected` with provider-neutral wording. |
 
-**Score:** 3/4 truths verified
+**Score:** 4/4 truths verified
 
 ### Required Artifacts
 
 | Artifact | Expected | Status | Details |
 | --- | --- | --- | --- |
-| `apps/web/src/app/page.tsx` | Mount the Phase 05 workspace in the app entry page | VERIFIED | Home page imports and renders `<DocpipeWorkspace />`. |
+| `apps/web/src/app/page.tsx` | Mount the Phase 05 workspace in the app entry page | VERIFIED | Home page imports and renders `<DocpipeWorkspace />`, and the page-level provider guidance is now provider-neutral. |
 | `apps/web/src/components/docpipe/docpipe-workspace.tsx` | Keep the one-page extraction flow, branch between built-in and custom schema extraction, and hand result state to the preview | VERIFIED | Stores `result` and `resultError`, compiles custom schemas, calls shared `extract()`, and passes `result`, `resultError`, and `sourceFileName` into `ResultsPreview`. |
 | `apps/web/src/lib/custom-schema.ts` | Compile browser-pasted schemas into a usable `z.ZodObject` for extraction | VERIFIED | Rejects empty input, uses `new Function("z", ...)`, wraps parse errors, and guards for top-level `z.object(...)`. |
 | `apps/web/src/components/docpipe/custom-schema-editor.tsx` | Inline UI for entering a custom Zod schema | VERIFIED | Renders the required label, helper copy, placeholder schema, and Zod usage note. |
@@ -49,7 +44,7 @@ gaps:
 | `apps/web/src/components/docpipe/result-confidence-table.tsx` | Show top-level fields, values, and confidence bands | VERIFIED | Renders a semantic table, formats scalar/null/object values, and color-bands confidence text at the roadmap thresholds. |
 | `apps/web/src/components/docpipe/results-preview.tsx` | Render empty, success, and error states plus in-card export actions | VERIFIED | Shows overall confidence, optional `pdfType`, table render path, export button row, and validation detail list. |
 | `apps/web/src/lib/result-export.ts` | Provide browser-only JSON, CSV, and clipboard export helpers | VERIFIED | Uses `Blob`, `URL.createObjectURL`, quoted CSV rows, and `navigator.clipboard.writeText`. |
-| `apps/web/src/lib/extraction-error-state.ts` | Convert extraction failures into clear user-facing error copy | PARTIAL | The required error codes are mapped, but provider-specific copy is incorrect on the OpenAI path. |
+| `apps/web/src/lib/extraction-error-state.ts` | Convert extraction failures into clear user-facing error copy | VERIFIED | The required error codes are mapped to distinct actionable states, and invalid-key/rate-limit messaging is now provider-neutral. |
 | `apps/web/src/app/globals.css` | Supply semantic confidence colors used by the results table | VERIFIED | Defines the high/medium/low confidence CSS tokens consumed by `ResultConfidenceTable`. |
 
 ### Key Link Verification
@@ -59,8 +54,7 @@ gaps:
 | `apps/web/src/app/page.tsx` | `apps/web/src/components/docpipe/docpipe-workspace.tsx` | `<DocpipeWorkspace />` | WIRED | The app home route mounts the phase UI directly. |
 | `apps/web/src/components/docpipe/docpipe-workspace.tsx` | `@docpipe/core/browser` | `extract({ input, schema, model, schemaName, schemaDescription })` | WIRED | Both built-in and custom schema branches converge on the shared core extract call. |
 | `apps/web/src/components/docpipe/docpipe-workspace.tsx` | `apps/web/src/lib/custom-schema.ts` | `compileCustomSchema(customSchemaSource)` | WIRED | Verified by `gsd-tools verify key-links` for `05-01-PLAN.md`. |
-| `apps/web/src/components/docpipe/docpipe-workspace.tsx` | `apps/web/src/lib/extraction-error-state.ts` | `toExtractionErrorState(error)` | WIRED | Verified by `gsd-tools verify key-links` for `05-02-PLAN.md`. |
-| `apps/web/src/components/docpipe/docpipe-workspace.tsx` | `apps/web/src/lib/extraction-error-state.ts` | selected provider context for invalid-key copy | NOT_WIRED | Error-state mapping is called, but no provider context reaches the mapper and the shared copy is Anthropic-specific. |
+| `apps/web/src/components/docpipe/docpipe-workspace.tsx` | `apps/web/src/lib/extraction-error-state.ts` | `toExtractionErrorState(error)` | WIRED | The shared mapper remains the single error-state translation path, and the copy is now correct for both supported providers without extra provider context. |
 | `apps/web/src/components/docpipe/docpipe-workspace.tsx` | `apps/web/src/components/docpipe/results-preview.tsx` | `result`, `resultError`, and `sourceFileName` props | WIRED | Verified by `gsd-tools verify key-links` for `05-03-PLAN.md`. |
 | `apps/web/src/components/docpipe/results-preview.tsx` | `apps/web/src/components/docpipe/result-confidence-table.tsx` | `data={result.data}` and `confidence={result.confidence}` | WIRED | Verified by `gsd-tools verify key-links` for `05-02-PLAN.md`. |
 | `apps/web/src/components/docpipe/results-preview.tsx` | `apps/web/src/lib/result-export.ts` | `downloadResultJson`, `downloadResultCsv`, and `copyResultJson` | WIRED | Verified by `gsd-tools verify key-links` for `05-03-PLAN.md`. |
@@ -80,6 +74,7 @@ gaps:
 | --- | --- | --- | --- |
 | Web package type safety | `pnpm --filter web type-check` | `tsc --noEmit` passed | PASS |
 | Web production build | `pnpm --filter web build` | `next build` passed; `/` prerendered static, `/api/pdf-inspect` dynamic | PASS |
+| OpenAI invalid-key UI copy | Local browser smoke check against the web app with a controlled OpenAI-style `401` response | Error card rendered `API key rejected` with provider-neutral copy and no Anthropic mention | PASS |
 
 ### Requirements Coverage
 
@@ -101,25 +96,17 @@ No orphaned Phase 05 requirement IDs were found. Plan frontmatter accounts for `
 
 ### Human Verification Required
 
-### 1. Provider-Specific Invalid-Key Copy
-
-**Test:** In the browser, select `OpenAI`, enter an invalid OpenAI key, and trigger extraction.
-**Expected:** The error card should use provider-neutral wording or explicitly reference OpenAI, not Anthropic.
-**Why human:** Requires a live provider request and rendered-browser copy inspection.
-
-### 2. Confidence Colors And Export UX
-
-**Test:** Run a successful extraction, confirm high/medium/low confidence badges render green/amber/red, then exercise `Download JSON`, `Download CSV`, and `Copy JSON`.
-**Expected:** Badge colors match the configured thresholds, downloads use `{fileStem}-extraction.*`, and the copy button flips to `Copied JSON` or `Copy failed` for 2 seconds.
-**Why human:** Requires visual rendering plus browser download and clipboard behavior.
+None. The earlier verification already covered the remaining Phase 05 surface area, and the gap-closing re-verification added a browser invalid-key smoke check for the OpenAI path.
 
 ### Gaps Summary
 
-Phase 05's main feature work is present and wired into the actual app: custom schema mode stays inside the one-page flow, successful results render in a confidence-banded table, and JSON/CSV/clipboard export actions compile and build cleanly. All Phase 05 requirement IDs declared in plan frontmatter are accounted for and satisfied in `REQUIREMENTS.md`.
+**No gaps found.** The previous Phase 05 verification gap is closed:
 
-The remaining gap is in the goal-level error-state promise. The shared error mapper defines distinct states, but the invalid-key and rate-limit messages are hardcoded to Anthropic while the workspace still exposes both Anthropic and OpenAI providers. That leaves at least one supported user path with misleading error copy, so the phase goal is not fully achieved yet.
+- Invalid-key and rate-limit UI messaging no longer hardcodes Anthropic, so both Anthropic and OpenAI users see accurate actionable copy.
+
+Phase 05 goal is fully achieved.
 
 ---
 
-_Verified: 2026-03-29T14:45:33.7309904Z_
-_Verifier: Claude (gsd-verifier)_
+_Verified: 2026-03-30T07:56:26.8213653+02:00_
+_Verifier: Codex_

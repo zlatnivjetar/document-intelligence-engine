@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Extraction Pipeline + Invoice Template** - Extraction pipeline (extract function, Zod validation, retry logic, error handling, confidence scoring), invoice template, npm publish pipeline
 - [x] **Phase 3: Core Completeness** - Receipt and W-2 templates, PDF routing (text vs image), business-rule validators, custom schema support, fixture tests, thin consumer verification
 - [x] **Phase 4: Web App - Core Flow** - Upload UI (drag-and-drop), BYOK key management, template selection, trigger extraction, basic results display
-- [ ] **Phase 5: Web App - Results & Export** - Confidence color-coded results table, JSON/CSV export, clipboard copy, custom schema input in web UI, error state display
+- [x] **Phase 5: Web App - Results & Export** - Confidence color-coded results table, JSON/CSV export, clipboard copy, custom schema input in web UI, error state display
 - [ ] **Phase 6: CLI** - Command-line interface wrapping core
 
 ## Phase Details
@@ -102,7 +102,7 @@ Plans:
   3. User can paste a custom Zod schema in the web UI and trigger extraction using that schema instead of a built-in template
   4. Error states are clearly displayed in the UI for all failure modes: invalid API key, unsupported file format, extraction failure, and validation failure after retries - each with a distinct, actionable message
 **Plans**: 3/3 plans complete
-**Verification**: gaps found - see `.planning/phases/05-web-app-results-export/05-VERIFICATION.md`
+**Verification**: passed - see `.planning/phases/05-web-app-results-export/05-VERIFICATION.md`
 **UI hint**: yes
 
 Plans:
@@ -119,7 +119,11 @@ Plans:
   2. `docpipe extract receipt.jpg --schema ./my-schema.ts --format csv` applies a custom schema and outputs CSV to stdout
   3. JSON output can be piped into `jq` or redirected to a file without encoding issues; exit code is non-zero on extraction failure
   4. `docpipe extract --help` displays clear usage documentation including all flags, supported templates, and environment variable support for the API key
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 06-01-PLAN.md - Commander extract command, local file/MIME validation, JSON/CSV stdout, and executable build alignment
+- [ ] 06-02-PLAN.md - Local custom schema module loading plus installed CLI consumer verification
 
 ## Progress
 
@@ -132,5 +136,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6
 | 2. Extraction Pipeline + Invoice Template | 4/4 | Complete | 2026-03-29 |
 | 3. Core Completeness | 6/6 | Complete | 2026-03-29 |
 | 4. Web App - Core Flow | 4/4 | Complete | 2026-03-29 |
-| 5. Web App - Results & Export | 3/3 | Gaps found | - |
+| 5. Web App - Results & Export | 3/3 | Complete | 2026-03-30 |
 | 6. CLI | 0/? | Not started | - |

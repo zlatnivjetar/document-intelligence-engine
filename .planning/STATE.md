@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in_progress
-stopped_at: Phase 05 verification gaps found
-last_updated: "2026-03-29T16:50:22.8644947+02:00"
-last_activity: 2026-03-29 -- Phase 05 verification gaps found
+stopped_at: Ready for Phase 06 planning
+last_updated: "2026-03-30T07:56:26.8213653+02:00"
+last_activity: 2026-03-30 -- Phase 05 verification passed
 progress:
   total_phases: 6
-  completed_phases: 4
+  completed_phases: 5
   total_plans: 19
   completed_plans: 19
-  percent: 100
+  percent: 83
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-29)
 
 **Core value:** A user can upload a document and get clean, validated structured data back - reliably, every time.
-**Current focus:** Phase 05 - verification gap closure
+**Current focus:** Phase 06 - CLI
 
 ## Current Position
 
-Phase: 05 (web-app-results-export) - GAPS FOUND
-Plan: Gap closure not planned
-Status: Phase 05 execution complete, but verification found provider-specific error-copy gaps
-Last activity: 2026-03-29 -- Phase 05 verification gaps found
+Phase: 06 (cli) - NOT STARTED
+Plan: Not started
+Status: Phases 01-05 are complete and verified; ready to begin Phase 06
+Last activity: 2026-03-30 -- Phase 05 verification passed
 
-Progress: [██████████] 100%
+Progress: [########--] 83%
 
 ## Performance Metrics
 
@@ -117,6 +117,7 @@ Recent decisions affecting current work:
 - [Phase 05-web-app-results-export]: The web UI accepts only top-level z.object({...}) pasted schemas so downstream result rows can keep predictable field-confidence mapping.
 - [Phase 05-web-app-results-export]: Export actions stay inside the existing results card instead of adding a separate page, modal, or toast flow.
 - [Phase 05-web-app-results-export]: CSV export writes one quoted row per top-level field from result.data using the shared ExtractionResult confidence map.
+- [Phase 05-web-app-results-export]: Invalid-key and rate-limit UI copy stays provider-neutral in the shared error mapper, so both Anthropic and OpenAI paths render accurate guidance without extra provider threading.
 
 ### Pending Todos
 
@@ -124,10 +125,10 @@ None yet.
 
 ### Blockers/Concerns
 
-- Phase 05 verification gap: invalid-key and rate-limit UI copy is Anthropic-specific even though the workspace supports both Anthropic and OpenAI providers.
+None right now.
 
 ## Session Continuity
 
-Last session: 2026-03-29T14:50:22.8644947+02:00
-Stopped at: Phase 05 verification gaps found
-Resume file: .planning/phases/05-web-app-results-export/05-VERIFICATION.md
+Last session: 2026-03-30T07:56:26.8213653+02:00
+Stopped at: Ready for Phase 06 planning
+Resume file: .planning/ROADMAP.md
